@@ -30,6 +30,10 @@ export const translations = {
                 step7: "Sales Audit",
             }
         },
+        portfolio: {
+            headline: "Portfolio",
+            title: "Our Cases",
+        }
     },
     ua: {
         pricing: 'Ціни',
@@ -59,5 +63,9 @@ export const translations = {
                 step7: "Аудит продажів",
             }
         },
+        portfolio: {
+            headline: "Портфоліо",
+            title: "Наші кейси",
+        }
     },
 }; 

@@ -17,8 +17,8 @@ type SoundConfig = {
 export default function HomeContent(): JSX.Element {
 
     const { scrollY } = useScroll();
-    const rotate1 = useTransform(scrollY, [0, 2000], [0, 360]);
-    const rotate2 = useTransform(scrollY, [0, 2000], [0, -360]);
+    const rotate1 = useTransform(scrollY, [0, 10000], [0, 360]);
+    const rotate2 = useTransform(scrollY, [0, 10000], [0, -360]);
 
     const content = "EFFICIENCY GROWTH QUALITY SOLUTIONS INNOVATION CONNECT LEAD";
 
@@ -132,8 +132,13 @@ export default function HomeContent(): JSX.Element {
         {
             title: 'INTERIOR\nDESIGNER',
             date: '01.05.2024 - 31.05.2024',
-            image: '/img/portfolio/car-detaling.webp'
+            image: '/img/portfolio/accountant-services.webp'
         },
+        {
+            title: 'INTERIOR\nDESIGNER',
+            date: '01.05.2024 - 31.05.2024',
+            image: '/img/portfolio/accountant-services.webp'
+        }
     ];
 
     return (
@@ -433,45 +438,22 @@ export default function HomeContent(): JSX.Element {
                         </div>
                     ))}
                 </div>
-                
-                    <motion.div className="hidden lg:block absolute -bottom-28 left-10 w-16 h-16" style={{ rotate: rotate1 }}>
-                        <Image src="/img/home/star.svg" alt="Star" width={64} height={64} loading="lazy" priority={false} />
-                    </motion.div>
             </section>
 
             <section className="bg-black relative overflow-hidden py-20">
-                {/* Градієнт */}
                 <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-gradient-to-tr from-red/40 to-transparent blur-[100px]" />
                 
-                {/* Зірка */}
-                <motion.div 
-                    className="absolute top-10 right-[40%]"
-                    animate={{ rotate: 360 }}
-                    transition={{ 
-                        duration: 20,
-                        repeat: Infinity,
-                        ease: "linear"
-                    }}
-                >
-                    <Image src="/img/star.svg" alt="Star" width={40} height={40} loading="lazy" />
-                </motion.div>
-
                 <div className="container mx-auto px-4">
-                    {/* Заголовок */}
                     <div className="mb-16">
                         <span className="text-red uppercase tracking-wider">Portfolio</span>
                         <h2 className="text-white text-5xl md:text-7xl font-bold mt-2">Case Studies</h2>
                     </div>
 
-                    {/* Слайдер */}
                     <div className="relative portfolio-slider">
-                        {/* Кнопки навігації */}
-                        <button className="swiper-button-prev absolute left-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white/10 transition-colors">
-                            <span className="sr-only">Previous</span>
+                        <button className="swiper-button-prev absolute left-10 top-1/2 -translate-y-1/2 z-20 w-[60px] h-[60px] rounded-full border border-white/20 flex items-center justify-center text-white">
                             ←
                         </button>
-                        <button className="swiper-button-next absolute right-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white/10 transition-colors">
-                            <span className="sr-only">Next</span>
+                        <button className="swiper-button-next absolute right-10 top-1/2 -translate-y-1/2 z-20 w-[60px] h-[60px] rounded-full border border-white/20 flex items-center justify-center text-white">
                             →
                         </button>
 
@@ -480,6 +462,7 @@ export default function HomeContent(): JSX.Element {
                             slidesPerView="auto"
                             centeredSlides={true}
                             loop={true}
+                            spaceBetween={20}
                             navigation={{
                                 prevEl: '.swiper-button-prev',
                                 nextEl: '.swiper-button-next',
@@ -487,25 +470,26 @@ export default function HomeContent(): JSX.Element {
                             className="!overflow-visible"
                         >
                             {portfolioSlides.map((slide, index) => (
-                                <SwiperSlide key={index} className="w-auto">
-                                    <div className="relative bg-[#1A1A1A] rounded-3xl overflow-hidden p-8 transition-all duration-300">
-                                        <div className="space-y-4 mb-8">
-                                            <h3 className="text-white text-4xl font-bold whitespace-pre-line">{slide.title}</h3>
-                                            <p className="text-white/60">{slide.date}</p>
+                                <SwiperSlide key={index} className="!w-[500px]">
+                                    <div className="relative rounded-[30px] overflow-hidden">
+                                        <div className="aspect-[4/3] h-[500px]">
+                                            <Image 
+                                                src={slide.image} 
+                                                alt={slide.title} 
+                                                fill
+                                                className="object-cover brightness-75"
+                                                loading="lazy" 
+                                            />
                                         </div>
-                                        
-                                        <Image 
-                                            src={slide.image} 
-                                            alt={slide.title} 
-                                            width={400} 
-                                            height={300} 
-                                            className="rounded-2xl"
-                                            loading="lazy" 
-                                        />
-                                        
-                                        <button className="absolute bottom-8 right-8 w-12 h-12 bg-white rounded-full flex items-center justify-center hover:bg-white/90 transition-colors">
-                                            →
-                                        </button>
+                                        <div className="absolute inset-0 p-10 flex flex-col">
+                                            <div className="flex-1">
+                                                <h3 className="text-white text-4xl md:text-5xl font-bold whitespace-pre-line">{slide.title}</h3>
+                                                <p className="text-white/60 mt-4">{slide.date}</p>
+                                            </div>
+                                            <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center hover:bg-white/90 transition-colors self-end">
+                                                →
+                                            </div>
+                                        </div>
                                     </div>
                                 </SwiperSlide>
                             ))}

@@ -562,9 +562,6 @@ video {
 .-bottom-10 {
   bottom: -2.5rem;
 }
-.-bottom-28 {
-  bottom: -7rem;
-}
 .-left-40 {
   left: -10rem;
 }
@@ -592,9 +589,6 @@ video {
 .bottom-2 {
   bottom: 0.5rem;
 }
-.bottom-8 {
-  bottom: 2rem;
-}
 .left-0 {
   left: 0px;
 }
@@ -607,29 +601,20 @@ video {
 .left-10 {
   left: 2.5rem;
 }
-.left-4 {
-  left: 1rem;
-}
 .right-0 {
   right: 0px;
 }
+.right-10 {
+  right: 2.5rem;
+}
 .right-4 {
   right: 1rem;
-}
-.right-8 {
-  right: 2rem;
-}
-.right-\[40\%\] {
-  right: 40%;
 }
 .top-0 {
   top: 0px;
 }
 .top-1\/2 {
   top: 50%;
-}
-.top-10 {
-  top: 2.5rem;
 }
 .top-20 {
   top: 5rem;
@@ -645,6 +630,9 @@ video {
 }
 .z-10 {
   z-index: 10;
+}
+.z-20 {
+  z-index: 20;
 }
 .z-50 {
   z-index: 50;
@@ -755,6 +743,9 @@ video {
 .hidden {
   display: none;
 }
+.aspect-\[4\/3\] {
+  aspect-ratio: 4/3;
+}
 .aspect-video {
   aspect-ratio: 16 / 9;
 }
@@ -794,6 +785,12 @@ video {
 .h-\[426px\] {
   height: 426px;
 }
+.h-\[500px\] {
+  height: 500px;
+}
+.h-\[60px\] {
+  height: 60px;
+}
 .h-\[70vh\] {
   height: 70vh;
 }
@@ -805,6 +802,9 @@ video {
 }
 .min-h-full {
   min-height: 100%;
+}
+.\!w-\[500px\] {
+  width: 500px !important;
 }
 .w-1\/2 {
   width: 50%;
@@ -854,11 +854,11 @@ video {
 .w-\[600px\] {
   width: 600px;
 }
+.w-\[60px\] {
+  width: 60px;
+}
 .w-\[726px\] {
   width: 726px;
-}
-.w-auto {
-  width: auto;
 }
 .w-fit {
   width: fit-content;
@@ -907,6 +907,9 @@ video {
 }
 .max-w-xs {
   max-width: 20rem;
+}
+.flex-1 {
+  flex: 1 1 0%;
 }
 .flex-shrink-0 {
   flex-shrink: 0;
@@ -1124,6 +1127,9 @@ video {
   border-top-width: calc(1px * calc(1 - var(--tw-divide-y-reverse)));
   border-bottom-width: calc(1px * var(--tw-divide-y-reverse));
 }
+.self-end {
+  align-self: flex-end;
+}
 .overflow-hidden {
   overflow: hidden;
 }
@@ -1150,9 +1156,6 @@ video {
 }
 .rounded-2xl {
   border-radius: 1rem;
-}
-.rounded-3xl {
-  border-radius: 1.5rem;
 }
 .rounded-\[20px\] {
   border-radius: 20px;
@@ -1254,10 +1257,6 @@ video {
 .border-zinc-800 {
   --tw-border-opacity: 1;
   border-color: rgb(39 39 42 / var(--tw-border-opacity));
-}
-.bg-\[\#1A1A1A\] {
-  --tw-bg-opacity: 1;
-  background-color: rgb(26 26 26 / var(--tw-bg-opacity));
 }
 .bg-amber-600 {
   --tw-bg-opacity: 1;
@@ -1470,6 +1469,9 @@ video {
 }
 .p-0 {
   padding: 0px;
+}
+.p-10 {
+  padding: 2.5rem;
 }
 .p-2 {
   padding: 0.5rem;
@@ -1796,6 +1798,10 @@ video {
   --tw-blur: blur(100px);
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
+.brightness-75 {
+  --tw-brightness: brightness(.75);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
 .filter {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
@@ -1921,10 +1927,6 @@ video {
 .hover\:bg-sky-700:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(3 105 161 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-white\/10:hover {
-  background-color: rgb(251 251 251 / 0.1);
 }
 
 .hover\:bg-white\/90:hover {
@@ -2582,6 +2584,7 @@ video {
     max-width: 32rem;
   }
 }
+
 
 /*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[2].use[1]!./node_modules/next/dist/build/webpack/loaders/next-font-loader/index.js??ruleSet[1].rules[13].oneOf[2].use[2]!./node_modules/next/font/google/target.css?{"path":"app/layout.tsx","import":"Inter","arguments":[{"subsets":["latin"]}],"variableName":"inter"} ***!
