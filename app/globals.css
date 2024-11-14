@@ -21,10 +21,10 @@
 .path-line {
     stroke-dasharray: 1000;
     stroke-dashoffset: 1000;
-    animation: drawLine 2s ease forwards;
+    animation: dash 0.5s ease-in-out forwards;
 }
 
-@keyframes drawLine {
+@keyframes dash {
     to {
         stroke-dashoffset: 0;
     }

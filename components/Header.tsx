@@ -55,14 +55,14 @@ export default function Header(): JSX.Element {
                                         UA
                                     </button>
                                 )}
-                                {language.toUpperCase() !== 'PL' && (
+                                {/* {language.toUpperCase() !== 'PL' && (
                                     <button 
                                         onClick={() => toggleLanguage('PL')} 
                                         className="w-full px-3 py-2 sm:px-7 sm:py-4 text-left hover:bg-gray-800 transition-colors"
                                     >
                                         PL
                                     </button>
-                                )}
+                                )} */}
                             </div>
                         )}
                     </div>

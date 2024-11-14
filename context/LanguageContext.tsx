@@ -25,7 +25,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
         // Якщо в localStorage нічого немає, використовуємо мову браузера
         const browserLang = navigator.language.split('-')[0];
-        const supportedLanguages = ['en', 'ua', 'pl'];
+        const supportedLanguages = ['en', 'ua'];
         const defaultLanguage = supportedLanguages.includes(browserLang) ? browserLang : 'en';
         
         setLanguage(defaultLanguage);

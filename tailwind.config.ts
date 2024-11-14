@@ -27,7 +27,7 @@ const config: Config = {
         'marquee': 'marquee 30s linear infinite',
         'bounce-x': 'bounceX 1s infinite',
         'shine': 'shine 3s linear infinite',
-        'fadeIn': 'fadeIn 0.5s ease forwards',
+        'fadeIn': 'fadeIn 1s ease forwards',
       },
       keyframes: {
         marquee: {
