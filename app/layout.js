@@ -1,4 +1,4 @@
-import { LanguageProvider } from './context/LanguageContext';
+import { LanguageProvider } from '../context/LanguageContext';
 import Header from './components/Header';
 
 export default function RootLayout({ children }) {

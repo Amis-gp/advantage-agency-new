@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useLanguage } from '@/app/context/LanguageContext';
+import { useLanguage } from '@/context/LanguageContext';
 import { translations } from '@/locales/translations';
 
 type Language = 'EN' | 'UA' | 'PL';
