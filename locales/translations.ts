@@ -39,7 +39,17 @@ export const translations = {
             numberOfSales: "Number Of Sales",
             costPerSale: "Cost Per Sale",
             more: "More",
-        }
+        },
+        partners: {
+            headline: "Companies",
+            title: "Our Partners & Clients",
+        },
+        achievements: {
+            headline: "A Few Numbers",
+            title: "Our Achievements",
+            description: "Statistics of our clients on various platforms",
+            button: "Free Consultation"
+            },
     },
     ua: {
         pricing: 'Ціни',
@@ -78,6 +88,16 @@ export const translations = {
             numberOfSales: "Кількість продажів",
             costPerSale: "Ціна за продаж",
             more: "Детальніше",
-        }
+        },
+        partners: {
+            headline: "Компанії",
+            title: "Наші партнери і клієнти",
+        },
+        achievements: {
+            headline: "Трішки цифр",
+            title: "Наші досягнення",
+            description: "Статистика наших клієнтів на різних платформах",
+            button: "Безкоштовна консультація"
+        },
     },
 }; 

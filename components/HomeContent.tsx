@@ -46,6 +46,10 @@ export default function HomeContent(): JSX.Element {
             audio: typeof Audio !== 'undefined' ? new Audio('/sound/flip-card.mp3') : null,
             volume: 0.5
         },
+        swoosh: {
+            audio: typeof Audio !== 'undefined' ? new Audio('/sound/swoosh.mp3') : null,
+            volume: 0.2
+        },
         click: {
             audio: typeof Audio !== 'undefined' ? new Audio('/sound/click.wav') : null,
             volume: 1
@@ -116,7 +120,7 @@ export default function HomeContent(): JSX.Element {
 //portfolio
     const portfolioSlides = [
         {
-            title: 'INTERIOR\nDESIGNER',
+            title: 'INTERIOR DESIGNER',
             date: '01.05.2024 - 31.05.2024',
             image: '/img/portfolio/car-detaling.webp',
             companyBudget: '784',
@@ -127,7 +131,7 @@ export default function HomeContent(): JSX.Element {
             slug: '/v1',
         },
         {
-            title: 'INTERIOR\nDESIGNER',
+            title: 'INTERIOR DESIGNER',
             date: '01.05.2024 - 31.05.2024',
             image: '/img/portfolio/constructions.webp',
             companyBudget: '784',
@@ -138,7 +142,7 @@ export default function HomeContent(): JSX.Element {
             slug: '/v1',
         },
         {
-            title: 'INTERIOR\nDESIGNER',
+            title: 'INTERIOR DESIGNER',
             date: '01.05.2024 - 31.05.2024',
             image: '/img/portfolio/accountant-services.webp',
             companyBudget: '784',
@@ -149,7 +153,7 @@ export default function HomeContent(): JSX.Element {
             slug: '/v1',
         },
         {
-            title: 'INTERIOR\nDESIGNER',
+            title: 'INTERIOR DESIGNER',
             date: '01.05.2024 - 31.05.2024',
             image: '/img/portfolio/accountant-services.webp',
             companyBudget: '784',
@@ -160,7 +164,7 @@ export default function HomeContent(): JSX.Element {
             slug: '/v1',
         },
         {
-            title: 'INTERIOR\nDESIGNER',
+            title: 'INTERIOR DESIGNER',
             date: '01.05.2024 - 31.05.2024',
             image: '/img/portfolio/accountant-services.webp',
             companyBudget: '784',
@@ -169,7 +173,51 @@ export default function HomeContent(): JSX.Element {
             numberOfSales: '10',
             costPerSale: '12',
             slug: '/v1',
-        }
+        },
+        {
+            title: 'INTERIOR DESIGNER',
+            date: '01.05.2024 - 31.05.2024',
+            image: '/img/portfolio/accountant-services.webp',
+            companyBudget: '784',
+            averageLeadPrice: '120',
+            numberOfLeads: '100',
+            numberOfSales: '10',
+            costPerSale: '12',
+            slug: '/v1',
+        },
+        {
+            title: 'INTERIOR DESIGNER',
+            date: '01.05.2024 - 31.05.2024',
+            image: '/img/portfolio/accountant-services.webp',
+            companyBudget: '784',
+            averageLeadPrice: '120',
+            numberOfLeads: '100',
+            numberOfSales: '10',
+            costPerSale: '12',
+            slug: '/v1',
+        },
+        {
+            title: 'INTERIOR DESIGNER',
+            date: '01.05.2024 - 31.05.2024',
+            image: '/img/portfolio/accountant-services.webp',
+            companyBudget: '784',
+            averageLeadPrice: '120',
+            numberOfLeads: '100',
+            numberOfSales: '10',
+            costPerSale: '12',
+            slug: '/v1',
+        },
+        {
+            title: 'INTERIOR DESIGNER',
+            date: '01.05.2024 - 31.05.2024',
+            image: '/img/portfolio/accountant-services.webp',
+            companyBudget: '784',
+            averageLeadPrice: '120',
+            numberOfLeads: '100',
+            numberOfSales: '10',
+            costPerSale: '12',
+            slug: '/v1',
+        },
     ];
     const [flippedCards, setFlippedCards] = useState<{ [key: number]: boolean }>({});
 
@@ -474,13 +522,16 @@ export default function HomeContent(): JSX.Element {
                 </div>
             </section>
 
-            <section className="bg-black relative pt-10 md:pt-20 px-6 relative overflow-hidden">
+            <section className="bg-black relative py-10 md:py-20 px-6 relative overflow-hidden">
                 
                 <motion.div className="absolute top-32 right-14 w-4 h-4 sm:w-8 sm:h-8" style={{ rotate: rotate2 }}>
                     <Image src="/img/home/star.svg" alt="Star" width={64} height={64} loading="lazy" priority={false} />
                 </motion.div>
-                <div className="absolute -bottom-10 -left-56 opacity-80 animate-float">
+                <div className="absolute bottom-40 sm:bottom-0 -left-56 opacity-20 md:opacity-80 animate-float">
                     <Image src="/img/home/gradient-ball-1.svg" alt="Decorative lines" width={426} height={426} loading="lazy" priority={false} />
+                </div>
+                <div className="md:hidden absolute bottom-5 -right-24 opacity-20 md:opacity-80 animate-float">
+                    <Image src="/img/home/gradient-ball-1.svg" alt="Decorative lines" width={226} height={226} loading="lazy" priority={false} />
                 </div>
                 <div className="max-w-6xl mx-auto relative">
                     
@@ -518,6 +569,11 @@ export default function HomeContent(): JSX.Element {
                                 dynamicBullets: true,
                             }}
                             className="!pb-10 sm:!pb-16 !pt-10 sm:!pt-14"
+                            onSlideChange={() => {
+                                if (window.innerWidth < 1280) {
+                                    playSound('swoosh');
+                                }
+                            }}
                             
                             breakpoints={{
                                 0: { 
@@ -549,7 +605,7 @@ export default function HomeContent(): JSX.Element {
                             {portfolioSlides.map((slide, index) => (
                                 <SwiperSlide key={index} className="!opacity-50 !scale-75 transition-all duration-300 [&.swiper-slide-active]:!opacity-100 [&.swiper-slide-active]:!scale-100">
                                     <div 
-                                        className="group relative w-full h-full [perspective:1000px] hover:scale-105 transition-all duration-300 hover:cursor-pointer" 
+                                        className="group relative w-full h-full [perspective:1000px] sm:hover:scale-105 transition-all duration-300 hover:cursor-pointer" 
                                         onMouseEnter={() => playSound('hover_1')}
                                         onClick={() => {
                                             playSound('flipCard');
@@ -575,7 +631,7 @@ export default function HomeContent(): JSX.Element {
                                                 </div>
                                                 <div className="absolute inset-0 p-10 flex flex-col">
                                                     <div className="flex flex-col items-center justify-center h-full">
-                                                        <h3 className="text-white text-4xl md:text-5xl font-bold whitespace-pre-line text-center">{slide.title}</h3>
+                                                        <h3 className="text-white text-4xl md:text-5xl font-bold whitespace-pre-line text-center uppercase">{slide.title}</h3>
                                                         <p className="text-white mt-4 text-lg font-medium">{slide.date}</p>
                                                     </div>
                                                     <div className="absolute bottom-10 right-10 w-[48px] h-[48px] bg-white rounded-full flex items-center justify-center hover:bg-white/90 transition-colors text-black">
@@ -586,7 +642,7 @@ export default function HomeContent(): JSX.Element {
                                 
                                             <div className="absolute inset-0 rounded-[30px] bg-zinc-900 p-10 [transform:rotateY(180deg)] [backface-visibility:hidden] flex flex-col">
                                                 <div className="mt-5">
-                                                    <h4 className="text-white text-4xl md:text-5xl font-bold mb-6">{slide.title}</h4>
+                                                    <h4 className="text-white text-4xl md:text-5xl font-bold mb-6 uppercase">{slide.title}</h4>
                                                     <div className="space-y-4 text-white/80 text-lg md:text-xl">
                                                         <div className="flex justify-between items-center">
                                                             <span>{t.portfolio.companyBudget}:</span>
@@ -625,6 +681,104 @@ export default function HomeContent(): JSX.Element {
                                 </SwiperSlide>
                             ))}
                         </Swiper>
+                    </div>
+                </div>
+            </section>
+            
+            {/* achievements */}
+            <section className="max-w-6xl px-6 mx-auto py-10 md:py-20">
+                <div className="p-6 md:px-14 md:py-10 bg-white text-black  relative overflow-hidden rounded-[40px]">
+                    <motion.div className="absolute top-10 right-10" style={{ rotate: rotate2 }}>
+                        <Image src="/img/home/star.svg" alt="Star" width={64} height={64} loading="lazy" priority={false} className="filter invert-[45%] sepia-[100%] hue-rotate-[0deg] brightness-[100%]"/>
+                    </motion.div>
+                    
+                    <div className="absolute -left-20 top-40">
+                        <Image src="/img/home/lines-yellow.svg" alt="Decorative circles" width={600} height={600} loading="lazy" />
+                    </div>
+                    <p className="text-red uppercase tracking-wider">{t.achievements.headline}</p>
+                    <div className="">
+                        <div className="flex items-end justify-between">
+                            <div>
+                                <h2 className="text-4xl md:text-6xl font-bold mt-2">{t.achievements.title}</h2>
+                                <p className="text-xl text-gray-600 mt-4">{t.achievements.description}</p>
+                            </div>
+                            <Link 
+                                href="#form" 
+                                className="inline-flex items-center gap-2 bg-black text-white px-8 py-4 rounded-full hover:bg-black/90 transition-all duration-300"
+                                onMouseEnter={() => playSound('hover_1')}
+                            >
+                                {t.achievements.button}
+                                <span className="inline-block animate-[bounceX_1s_ease-in-out_infinite]">→</span>
+                            </Link>
+                        </div>
+
+                        <div className=" relative">
+                            <Swiper
+                                modules={[Navigation]}
+                                slidesPerView={1}
+                                loop={true}
+                                className="w-full"
+                                navigation={{
+                                    prevEl: '.achievement-prev',
+                                    nextEl: '.achievement-next',
+                                }}
+                                onSlideChange={() => playSound('swoosh')}
+                            >
+                                {[1, 2, 3].map((index) => (
+                                    <SwiperSlide key={index}>
+                                        <div className="relative">
+                                            <Image 
+                                                src="/img/home/macbook.svg" 
+                                                alt="Achievement statistics" 
+                                                width={800} 
+                                                height={500} 
+                                                className="rounded-3xl"
+                                                loading="lazy"
+                                            />
+                                        </div>
+                                    </SwiperSlide>
+                                ))}
+                            </Swiper>
+
+                            <div className="flex gap-4 justify-center mt-8">
+                                <button 
+                                    className="achievement-prev w-12 h-12 rounded-full bg-black flex items-center justify-center text-white hover:bg-black/90 transition-all duration-300 active:scale-90"
+                                    onClick={() => playSound('click')}
+                                >
+                                    ←
+                                </button>
+                                <button 
+                                    className="achievement-next w-12 h-12 rounded-full bg-black flex items-center justify-center text-white hover:bg-black/90 transition-all duration-300 active:scale-90"
+                                    onClick={() => playSound('click')}
+                                >
+                                    →
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* logo */}
+            <section className="bg-black pt-10 md:pt-20">
+                <div className="max-w-6xl mx-auto px-6">
+                    <div className="sm:text-center mb-16">
+                        <span className="text-red uppercase tracking-wider">{t.partners.headline}</span>
+                        <h2 className="text-white text-5xl md:text-7xl font-bold mt-2">{t.partners.title}</h2>
+                    </div>
+
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-16">
+                        {[1, 2, 3, 4].map((index) => (
+                            <div 
+                                key={index} 
+                                className="aspect-[3/2] flex items-center justify-center border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-colors duration-300 group cursor-pointer"
+                                onMouseEnter={() => playSound('hover_2')}
+                            >
+                                <span className="text-white text-3xl md:text-4xl font-bold opacity-80 group-hover:opacity-100 transition-opacity duration-300">
+                                    LOGO
+                                </span>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </section>
