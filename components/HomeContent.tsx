@@ -1,13 +1,14 @@
 'use client';
-import { useScroll, motion, useTransform } from 'framer-motion';
+import { useScroll, motion, useTransform, transform } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '@/locales/translations';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useEffect, useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation } from 'swiper/modules';
+import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
+import 'swiper/css/pagination';
 
 type SoundConfig = {
     audio: HTMLAudioElement | null;
@@ -39,16 +40,16 @@ export default function HomeContent(): JSX.Element {
         },
         hover_2: {
             audio: typeof Audio !== 'undefined' ? new Audio('/sound/hover-2.wav') : null,
-            volume: 0.1
+            volume: 0.3
+        },
+        flipCard: {
+            audio: typeof Audio !== 'undefined' ? new Audio('/sound/flip-card.mp3') : null,
+            volume: 0.5
         },
         click: {
             audio: typeof Audio !== 'undefined' ? new Audio('/sound/click.wav') : null,
-            volume: 0.9
+            volume: 1
         },
-        success: {
-            audio: typeof Audio !== 'undefined' ? new Audio('/sound/success.wav') : null,
-            volume: 0.6
-        }
     });
     
     const playSound = (soundName: keyof typeof sounds) => {
@@ -117,29 +118,61 @@ export default function HomeContent(): JSX.Element {
         {
             title: 'INTERIOR\nDESIGNER',
             date: '01.05.2024 - 31.05.2024',
-            image: '/img/portfolio/car-detaling.webp'
+            image: '/img/portfolio/car-detaling.webp',
+            companyBudget: '784',
+            averageLeadPrice: '120',
+            numberOfLeads: '100',
+            numberOfSales: '10',
+            costPerSale: '12',
+            slug: '/v1',
         },
         {
             title: 'INTERIOR\nDESIGNER',
             date: '01.05.2024 - 31.05.2024',
-            image: '/img/portfolio/constructions.webp'
+            image: '/img/portfolio/constructions.webp',
+            companyBudget: '784',
+            averageLeadPrice: '120',
+            numberOfLeads: '100',
+            numberOfSales: '10',
+            costPerSale: '12',
+            slug: '/v1',
         },
         {
             title: 'INTERIOR\nDESIGNER',
             date: '01.05.2024 - 31.05.2024',
-            image: '/img/portfolio/accountant-services.webp'
+            image: '/img/portfolio/accountant-services.webp',
+            companyBudget: '784',
+            averageLeadPrice: '120',
+            numberOfLeads: '100',
+            numberOfSales: '10',
+            costPerSale: '12',
+            slug: '/v1',
         },
         {
             title: 'INTERIOR\nDESIGNER',
             date: '01.05.2024 - 31.05.2024',
-            image: '/img/portfolio/accountant-services.webp'
+            image: '/img/portfolio/accountant-services.webp',
+            companyBudget: '784',
+            averageLeadPrice: '120',
+            numberOfLeads: '100',
+            numberOfSales: '10',
+            costPerSale: '12',
+            slug: '/v1',
         },
         {
             title: 'INTERIOR\nDESIGNER',
             date: '01.05.2024 - 31.05.2024',
-            image: '/img/portfolio/accountant-services.webp'
+            image: '/img/portfolio/accountant-services.webp',
+            companyBudget: '784',
+            averageLeadPrice: '120',
+            numberOfLeads: '100',
+            numberOfSales: '10',
+            costPerSale: '12',
+            slug: '/v1',
         }
     ];
+    const [flippedCards, setFlippedCards] = useState<{ [key: number]: boolean }>({});
+
 
     return (
         <div className='bg-black text-white overflow-hidden       pb-[1000px]'>
@@ -156,7 +189,7 @@ export default function HomeContent(): JSX.Element {
                 </div>
 
                 
-                <motion.div className="absolute top-20 right-4 xl:right-16 rotate-45 w-4 h-4 sm:w-8 sm:h-8 xl:w-auto xl:h-auto" style={{ rotate: rotate2 }}>
+                <motion.div className="absolute top-20 right-4 xl:right-16  w-4 h-4 sm:w-8 sm:h-8 xl:w-auto xl:h-auto" style={{ rotate: rotate2 }}>
                     <Image src="/img/home/star.svg" alt="Star" width={64} height={64} loading="lazy" priority={false} />
                 </motion.div>
             
@@ -219,10 +252,11 @@ export default function HomeContent(): JSX.Element {
                         <Link href="#form" className="group relative bg-white hover:bg-white/90 transition-all duration-300 text-black px-8 py-4 rounded-full text-lg font-medium flex items-center gap-2 overflow-hidden" 
                         onMouseEnter={() => playSound('hover_1')}>
                             <span className="relative z-10">{t.hero.button}</span>
-                            <span className="relative z-10 animate-bounce-x">→</span>
-                            <div className="absolute inset-0 animate-shine bg-gradient-to-r from-gray/0 via-gray/70 to-gray/0"></div>
+                            <span className="relative z-10 animate-[bounceX_1s_ease-in-out_infinite]">→</span>
+                            <div className="absolute inset-0 animate-shine bg-gradient-to-r from-gray/10 via-gray/70 to-gray/0"></div>
                         </Link>
                     </div>
+                    
                 </div>
             </section>
 
@@ -289,7 +323,7 @@ export default function HomeContent(): JSX.Element {
                             <Link href="#form" className="group relative bg-white hover:bg-white/90 transition-all duration-300 text-black px-8 py-4 rounded-full text-lg font-medium flex items-center gap-2 overflow-hidden"
                             onMouseEnter={() => playSound('hover_1')}>
                                 <span className="relative z-10">{t.introduction.button}</span>
-                                <span className="relative z-10 animate-bounce-x">→</span>
+                                <span className="relative z-10 animate-[bounceX_1s_ease-in-out_infinite]">→</span>
                                 <div className="absolute inset-0 animate-shine bg-gradient-to-r from-white/0 via-white/50 to-white/0"></div>
                             </Link>
                         </div>
@@ -331,7 +365,7 @@ export default function HomeContent(): JSX.Element {
                     </div>
                 </div>
 
-                <div className="relative lg:w-1/2 md:ml-5 mt-12 md:mt-0 relative">
+                <div className="relative lg:w-1/2 md:ml-5 mt-12 md:mt-0">
                     <div className="flex flex-col justify-between space-y-10 relative">
                         <svg 
                             className="absolute inset-0 w-full h-full pointer-events-none" 
@@ -395,10 +429,10 @@ export default function HomeContent(): JSX.Element {
                     <div className="lg:hidden absolute -top-10 -left-80 opacity-80 animate-float">
                         <Image src="/img/home/gradient-ball-1.svg" alt="Decorative lines" width={426} height={426} loading="lazy" priority={false} />
                     </div>
-                    <div className="absolute -bottom-10 -right-80 opacity-80 animate-float">
+                    <div className="absolute bottom-5 -right-80 opacity-80 animate-float">
                         <Image src="/img/home/gradient-ball-1.svg" alt="Decorative lines" width={426} height={426} loading="lazy" priority={false} />
                     </div>
-                    <div className="hidden lg:block absolute -bottom-10 -right-80 w-[726px] h-[726px] opacity-40">
+                    <div className="hidden lg:block absolute -bottom-10 -right-[650px] w-[726px] h-[726px] opacity-40">
                         <Image src="/img/home/lines.svg" alt="Decorative lines" width={726} height={726} loading="lazy" priority={false} />
                     </div>
                 </div>
@@ -412,7 +446,7 @@ export default function HomeContent(): JSX.Element {
                         { text: "Quality", left: "17%", top: "65%", },
                         { text: "Perfomans", left: "20%", bottom: "0%"},
                         { text: "Content", right: "0%", bottom: "3%", rotate: 10 },
-                        // Іконки
+                        // icons
                         { icon: "/img/home/telegram.svg", left: "8%", bottom: "5%", rotate: -30, isIcon: true, istg: true },
                         { icon: "/img/home/whatsapp.svg", left: "32%", top: "48%", rotate: -30, isIcon: true },
                         { icon: "/img/home/telegram.svg", left: "47%", top: "42%", rotate: -30, isIcon: true, istg: true },
@@ -440,26 +474,36 @@ export default function HomeContent(): JSX.Element {
                 </div>
             </section>
 
-            <section className="bg-black relative overflow-hidden py-20">
-                <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-gradient-to-tr from-red/40 to-transparent blur-[100px]" />
+            <section className="bg-black relative pt-10 md:pt-20 px-6 relative overflow-hidden">
                 
-                <div className="container mx-auto px-4">
-                    <div className="mb-16">
-                        <span className="text-red uppercase tracking-wider">Portfolio</span>
-                        <h2 className="text-white text-5xl md:text-7xl font-bold mt-2">Case Studies</h2>
-                    </div>
+                <motion.div className="absolute top-32 right-14 w-4 h-4 sm:w-8 sm:h-8" style={{ rotate: rotate2 }}>
+                    <Image src="/img/home/star.svg" alt="Star" width={64} height={64} loading="lazy" priority={false} />
+                </motion.div>
+                <div className="absolute -bottom-10 -left-56 opacity-80 animate-float">
+                    <Image src="/img/home/gradient-ball-1.svg" alt="Decorative lines" width={426} height={426} loading="lazy" priority={false} />
+                </div>
+                <div className="max-w-6xl mx-auto relative">
+                    
+                    <motion.div className="hidden xl:block absolute -top-16 -left-20 w-auto h-auto" style={{ rotate: rotate2 }}>
+                        <Image src="/img/home/star.svg" alt="Star" width={64} height={64} loading="lazy" priority={false} />
+                    </motion.div>
 
-                    <div className="relative portfolio-slider">
-                        <button className="swiper-button-prev absolute left-10 top-1/2 -translate-y-1/2 z-20 w-[60px] h-[60px] rounded-full border border-white/20 flex items-center justify-center text-white">
+                    <span className="text-red uppercase tracking-wider">{t.portfolio.headline}</span>
+                    <h2 className="text-white text-5xl md:text-7xl font-bold mt-2">{t.portfolio.title}</h2>
+        
+                    <div className="relative">
+                        <button className="hidden xl:block swiper-button-prev absolute -left-16 top-1/2 -translate-y-1/2 z-20 w-[60px] h-[60px] rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white/10 transition-all duration-100 active:scale-90"
+                            onClick={() => playSound('click')} >
                             ←
                         </button>
-                        <button className="swiper-button-next absolute right-10 top-1/2 -translate-y-1/2 z-20 w-[60px] h-[60px] rounded-full border border-white/20 flex items-center justify-center text-white">
+                        <button className="hidden xl:block swiper-button-next absolute -right-16 top-1/2 -translate-y-1/2 z-20 w-[60px] h-[60px] rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white/10 transition-all duration-100 active:scale-90"
+                        onClick={() => playSound('click')}>
                             →
                         </button>
 
                         <Swiper
-                            modules={[Navigation]}
-                            slidesPerView="auto"
+                            modules={[Navigation, Pagination]}
+                            slidesPerView={3}
                             centeredSlides={true}
                             loop={true}
                             spaceBetween={20}
@@ -467,27 +511,114 @@ export default function HomeContent(): JSX.Element {
                                 prevEl: '.swiper-button-prev',
                                 nextEl: '.swiper-button-next',
                             }}
-                            className="!overflow-visible"
+                            pagination={{
+                                enabled: true,
+                                clickable: true,
+                                type: 'bullets',
+                                dynamicBullets: true,
+                            }}
+                            className="!pb-10 sm:!pb-16 !pt-10 sm:!pt-14"
+                            
+                            breakpoints={{
+                                0: { 
+                                    slidesPerView: 1,
+                                    pagination: {
+                                        enabled: true,
+                                    }
+                                },
+                                400: {
+                                    slidesPerView: 2,
+                                    pagination: {
+                                        enabled: true,
+                                    }
+                                },
+                                1024: { 
+                                    slidesPerView: 3,
+                                    pagination: {
+                                        enabled: false,
+                                    }
+                                }
+                            }}
+                            style={{
+                                '--swiper-slide-transform': 'scale(0.8)',
+                                '--swiper-pagination-color': '#D12923',
+                                '--swiper-pagination-bullet-inactive-color': '#ffffff',
+                                '--swiper-pagination-bullet-inactive-opacity': '0.5',
+                            } as any}
                         >
                             {portfolioSlides.map((slide, index) => (
-                                <SwiperSlide key={index} className="!w-[500px]">
-                                    <div className="relative rounded-[30px] overflow-hidden">
-                                        <div className="aspect-[4/3] h-[500px]">
-                                            <Image 
-                                                src={slide.image} 
-                                                alt={slide.title} 
-                                                fill
-                                                className="object-cover brightness-75"
-                                                loading="lazy" 
-                                            />
-                                        </div>
-                                        <div className="absolute inset-0 p-10 flex flex-col">
-                                            <div className="flex-1">
-                                                <h3 className="text-white text-4xl md:text-5xl font-bold whitespace-pre-line">{slide.title}</h3>
-                                                <p className="text-white/60 mt-4">{slide.date}</p>
+                                <SwiperSlide key={index} className="!opacity-50 !scale-75 transition-all duration-300 [&.swiper-slide-active]:!opacity-100 [&.swiper-slide-active]:!scale-100">
+                                    <div 
+                                        className="group relative w-full h-full [perspective:1000px] hover:scale-105 transition-all duration-300 hover:cursor-pointer" 
+                                        onMouseEnter={() => playSound('hover_1')}
+                                        onClick={() => {
+                                            playSound('flipCard');
+                                            setFlippedCards(prev => ({
+                                                ...prev,
+                                                [index]: !prev[index]
+                                            }));
+                                        }}
+                                    >
+                                    
+                                        <div className={`relative aspect-[4/6] transition-all duration-500 [transform-style:preserve-3d] ${
+                                            flippedCards[index] ? '[transform:rotateY(180deg)]' : ''
+                                        }`}>
+                                            <div className="absolute inset-0 [backface-visibility:hidden]">
+                                                <div className="">
+                                                    <Image 
+                                                        src={slide.image} 
+                                                        alt={slide.title} 
+                                                        fill
+                                                        className="object-cover brightness-75 rounded-[30px]"
+                                                        loading="lazy" 
+                                                    />
+                                                </div>
+                                                <div className="absolute inset-0 p-10 flex flex-col">
+                                                    <div className="flex flex-col items-center justify-center h-full">
+                                                        <h3 className="text-white text-4xl md:text-5xl font-bold whitespace-pre-line text-center">{slide.title}</h3>
+                                                        <p className="text-white mt-4 text-lg font-medium">{slide.date}</p>
+                                                    </div>
+                                                    <div className="absolute bottom-10 right-10 w-[48px] h-[48px] bg-white rounded-full flex items-center justify-center hover:bg-white/90 transition-colors text-black">
+                                                        <span className="inline-block animate-[bounceX-small_1s_ease-in-out_infinite]">→</span>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center hover:bg-white/90 transition-colors self-end">
-                                                →
+                                
+                                            <div className="absolute inset-0 rounded-[30px] bg-zinc-900 p-10 [transform:rotateY(180deg)] [backface-visibility:hidden] flex flex-col">
+                                                <div className="mt-5">
+                                                    <h4 className="text-white text-4xl md:text-5xl font-bold mb-6">{slide.title}</h4>
+                                                    <div className="space-y-4 text-white/80 text-lg md:text-xl">
+                                                        <div className="flex justify-between items-center">
+                                                            <span>{t.portfolio.companyBudget}:</span>
+                                                            <span>{slide.companyBudget}$</span>
+                                                        </div>
+                                                        <div className="flex justify-between items-center">
+                                                            <span>{t.portfolio.averageLeadPrice}:</span>
+                                                            <span>{slide.averageLeadPrice}$</span>
+                                                        </div>
+                                                        <div className="flex justify-between items-center">
+                                                            <span>{t.portfolio.numberOfLeads}:</span>
+                                                            <span>{slide.numberOfLeads}</span>
+                                                        </div>
+                                                        <div className="flex justify-between items-center">
+                                                            <span>{t.portfolio.numberOfSales}:</span>
+                                                            <span>{slide.numberOfSales}</span>
+                                                        </div>
+                                                        <div className="flex justify-between items-center">
+                                                            <span>{t.portfolio.costPerSale}:</span>
+                                                            <span>{slide.costPerSale}$</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="mt-auto">
+                                                    <Link 
+                                                        href={`${slide.slug}`}
+                                                        className="inline-flex items-center gap-2 text-red hover:text-red/80 transition-colors"
+                                                    >
+                                                        {t.portfolio.more}
+                                                        <span className="inline-block animate-[bounceX_1s_ease-in-out_infinite]">→</span>
+                                                    </Link>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

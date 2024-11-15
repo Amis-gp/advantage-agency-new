@@ -25,7 +25,7 @@ const config: Config = {
       },
       animation: {
         'marquee': 'marquee 30s linear infinite',
-        'bounce-x': 'bounceX 1s infinite',
+        'bounce-x': 'bounce-x 1s ease-in-out infinite',
         'shine': 'shine 3s linear infinite',
         'fadeIn': 'fadeIn 1s ease forwards',
       },
@@ -35,8 +35,12 @@ const config: Config = {
           '100%': { transform: 'translateX(-50%)' }
         },
         bounceX: {
-          '0%, 100%': { transform: 'translateX(0)' },
-          '50%': { transform: 'translateX(25%)' }
+          '0%, 100%': { transform: 'translateX(0%)' },
+          '50%': { transform: 'translateX(30%)' },
+        },
+        'bounceX-small': {
+          '0%, 100%': { transform: 'translateX(-5%)' },
+          '50%': { transform: 'translateX(5%)' },
         },
         shine: {
           '0%': { transform: 'translateX(-100%)' },

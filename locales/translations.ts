@@ -33,6 +33,12 @@ export const translations = {
         portfolio: {
             headline: "Portfolio",
             title: "Our Cases",
+            companyBudget: "Company Budget",
+            averageLeadPrice: "Average Lead Price",
+            numberOfLeads: "Number Of Leads",
+            numberOfSales: "Number Of Sales",
+            costPerSale: "Cost Per Sale",
+            more: "More",
         }
     },
     ua: {
@@ -66,6 +72,12 @@ export const translations = {
         portfolio: {
             headline: "Портфоліо",
             title: "Наші кейси",
+            companyBudget: "Бюджет клієнта",
+            averageLeadPrice: "Середня ціна ліда",
+            numberOfLeads: "Кількість лідів",
+            numberOfSales: "Кількість продажів",
+            costPerSale: "Ціна за продаж",
+            more: "Детальніше",
         }
     },
 }; 
