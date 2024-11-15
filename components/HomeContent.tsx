@@ -461,7 +461,11 @@ export default function HomeContent(): JSX.Element {
                                 key={index} 
                                 className={`z-10 flex items-center gap-8 opacity-0 animate-fadeIn ${index % 2 === 1 && index !== 1 ? 'ml-24' : ''} ${index==1 ? 'ml-16' : ''}`} 
                                 style={{ animationDelay: `${index * 0.2}s` }}
-                                ref={(el) => itemRefs.current[index] = el}
+                                ref={(el) => {
+                                    if (itemRefs.current) {
+                                        itemRefs.current[index] = el;
+                                    }
+                                }}
                             >
                                 <div>
                                     <div className="w-16 h-16 rounded-full bg-red flex items-center justify-center z-10 relative">
