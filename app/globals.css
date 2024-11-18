@@ -40,3 +40,35 @@
     transform: scale(1);
     opacity: 1;
 }
+
+
+/* logo marquee */
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.partner-marquee-container {
+  display: flex;
+  width: fit-content;
+}
+
+.partner-marquee-content {
+  display: flex;
+  animation: scroll 30s linear infinite;
+}
+
+.partner-logo {
+  transition: all 0.3s ease;
+}
+
+.partner-logo:hover {
+  transform: scale(1.1);
+  filter: brightness(1.2);
+}
+
+

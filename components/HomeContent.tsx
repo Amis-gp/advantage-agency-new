@@ -383,7 +383,6 @@ export default function HomeContent(): JSX.Element {
                             onMouseEnter={() => playSound('hover_1')}>
                                 <span className="relative z-10">{t.introduction.button}</span>
                                 <span className="relative z-10 animate-[bounceX_1s_ease-in-out_infinite]">→</span>
-                                <div className="absolute inset-0 animate-shine bg-gradient-to-r from-white/0 via-white/50 to-white/0"></div>
                             </Link>
                         </div>
                     </div>
@@ -703,23 +702,31 @@ export default function HomeContent(): JSX.Element {
             {/* achievements */}
             <section className="max-w-6xl px-6 mx-auto py-10 md:py-20">
                 <div className="p-6 md:px-14 md:py-10 bg-white text-black  relative overflow-hidden rounded-[40px]">
-                    <motion.div className="absolute top-10 right-10" style={{ rotate: rotate2 }}>
+                    <motion.div className="absolute w-10 h-10 sm:w-16 sm:h-16 top-3 sm:top-10 right-10" style={{ rotate: rotate2 }}>
                         <Image src="/img/home/star.svg" alt="Star" width={64} height={64} loading="lazy" priority={false} className="filter invert-[45%] sepia-[100%] hue-rotate-[0deg] brightness-[100%]"/>
                     </motion.div>
-                    
+                    <div className="absolute top-[20%] -left-40 sm:-left-32 opacity-80 w-[326px] h-[326px] md:w-auto md:h-auto animate-float">
+                        <Image src="/img/home/gradient-ball-1.svg" alt="Decorative lines" width={426} height={426} loading="lazy" priority={false} />
+                    </div>
+                    <div className="absolute top-[40%] -right-40 sm:-right-40 w-[326px] h-[326px] md:w-auto md:h-auto opacity-80 animate-float ">
+                        <Image src="/img/home/gradient-ball-1.svg" className="scale-x-[-1]" alt="Decorative lines" width={426} height={426} loading="lazy" priority={false} />
+                    </div>
                     <div className="absolute -left-20 top-40">
                         <Image src="/img/home/lines-yellow.svg" alt="Decorative circles" width={600} height={600} loading="lazy" />
                     </div>
-                    <p className="text-red uppercase tracking-wider">{t.achievements.headline}</p>
-                    <div className="">
-                        <div className="flex items-end justify-between">
+                    
+
+
+                    <div className="z-10 relative">
+                        <div className="flex flex-col xl:flex-row xl:items-end justify-between xl:max-w-[80%] mx-auto">
                             <div>
+                            <p className="text-red uppercase tracking-wider">{t.achievements.headline}</p>
                                 <h2 className="text-4xl md:text-6xl font-bold mt-2">{t.achievements.title}</h2>
                                 <p className="text-xl text-gray-600 mt-4">{t.achievements.description}</p>
                             </div>
                             <Link 
                                 href="#form" 
-                                className="inline-flex items-center gap-2 bg-black text-white px-8 py-4 rounded-full hover:bg-black/90 transition-all duration-300"
+                                className="mt-4 xl:mt-0 inline-flex items-center gap-2 w-fit bg-black text-white px-8 py-4 rounded-full hover:bg-black/90 transition-all duration-300"
                                 onMouseEnter={() => playSound('hover_1')}
                             >
                                 {t.achievements.button}
@@ -727,33 +734,41 @@ export default function HomeContent(): JSX.Element {
                             </Link>
                         </div>
 
-                        <div className=" relative">
-                            <Swiper
-                                modules={[Navigation]}
-                                slidesPerView={1}
-                                loop={true}
-                                className="w-full"
-                                navigation={{
-                                    prevEl: '.achievement-prev',
-                                    nextEl: '.achievement-next',
-                                }}
-                                onSlideChange={() => playSound('swoosh')}
-                            >
-                                {[1, 2, 3].map((index) => (
-                                    <SwiperSlide key={index}>
-                                        <div className="relative">
-                                            <Image 
-                                                src="/img/home/macbook.svg" 
-                                                alt="Achievement statistics" 
-                                                width={800} 
-                                                height={500} 
-                                                className="rounded-3xl"
-                                                loading="lazy"
-                                            />
-                                        </div>
-                                    </SwiperSlide>
-                                ))}
-                            </Swiper>
+                        <div className="mt-10 relative">
+                            <div className="relative">
+                                <Image src="/img/home/macbook.svg" className="w-max" alt="Achievement statistics" width={800} height={500} loading="lazy" />
+                                
+                                <div className="absolute top-[5%] left-[11.5%] right-[11.5%] lg:right-[10.2vw] xl:right-[12.7%] bottom-[7%] overflow-hidden rounded-[5px]">
+                                    <Swiper
+                                        modules={[Navigation]}
+                                        slidesPerView={1}
+                                        loop={true}
+                                        className="h-full"
+                                        navigation={{
+                                            prevEl: '.achievement-prev',
+                                            nextEl: '.achievement-next',
+                                        }}
+                                        autoplay={{
+                                            delay: 4000,
+                                            disableOnInteraction: false,
+                                        }}
+                                    >
+                                        {[1, 2, 3].map((index) => (
+                                            <SwiperSlide key={index}>
+                                                <div className="relative h-full">
+                                                    <Image 
+                                                        src={`/img/home/stata-${index}.webp`} 
+                                                        alt="Achievement statistics" 
+                                                        fill
+                                                        className="object-cover"
+                                                        loading="lazy"
+                                                    />
+                                                </div>
+                                            </SwiperSlide>
+                                        ))}
+                                    </Swiper>
+                                </div>
+                            </div>
 
                             <div className="flex gap-4 justify-center mt-8">
                                 <button 
@@ -776,24 +791,41 @@ export default function HomeContent(): JSX.Element {
 
             {/* logo */}
             <section className="bg-black pt-10 md:pt-20">
-                <div className="max-w-6xl mx-auto px-6">
-                    <div className="sm:text-center mb-16">
+                <div className="max-w-[1400px] mx-auto px-6">
+                    <div className="sm:text-center">
                         <span className="text-red uppercase tracking-wider">{t.partners.headline}</span>
                         <h2 className="text-white text-5xl md:text-7xl font-bold mt-2">{t.partners.title}</h2>
                     </div>
 
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-16">
-                        {[1, 2, 3, 4].map((index) => (
-                            <div 
-                                key={index} 
-                                className="aspect-[3/2] flex items-center justify-center border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-colors duration-300 group cursor-pointer"
-                                onMouseEnter={() => playSound('hover_2')}
-                            >
-                                <span className="text-white text-3xl md:text-4xl font-bold opacity-80 group-hover:opacity-100 transition-opacity duration-300">
-                                    LOGO
-                                </span>
-                            </div>
-                        ))}
+                    <div className="relative w-full overflow-hidden pt-10 md:pt-16 pb-2">
+                        <div className="partner-marquee-container">
+                            {[1, 2].map((containerIndex) => (
+                                <div key={containerIndex} className="partner-marquee-content">
+                                    {[1, 2, 3, 4, 5, 6, 7].map((index) => (
+                                        <div 
+                                            key={`${containerIndex}-${index}`} 
+                                            className="h-[40px] md:h-[60px] w-auto px-8 flex-shrink-0 flex items-center justify-center"
+                                        >
+                                            <div className="h-full flex items-center justify-center">
+                                                <Image 
+                                                    src={`/img/home/parthner-logo-${index}.webp`}
+                                                    alt={`Partner logo ${index}`}
+                                                    height={60}
+                                                    width={400}
+                                                    className="h-full w-auto max-w-[300px] partner-logo"
+                                                    loading="lazy"
+                                                    onMouseEnter={() => playSound('hover_2')}
+                                                />
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            ))}
+                        </div>
+                        
+                        {/* Градієнтні краї */}
+                        <div className="absolute -left-2 top-0 bottom-0 w-20 bg-gradient-to-r from-black to-transparent z-10"></div>
+                        <div className="absolute -right-2 top-0 bottom-0 w-20 bg-gradient-to-l from-black to-transparent z-10"></div>
                     </div>
                 </div>
             </section>

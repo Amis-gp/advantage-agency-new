@@ -49,8 +49,43 @@ export const translations = {
             title: "Our Achievements",
             description: "Statistics of our clients on various platforms",
             button: "Free Consultation"
-            },
+        },
+        instructions: {
+            headline: "Instructions",
+            title: "How the process of cooperation looks like",
+            description: "Depending on your marketing needs, we develop a working path for your business!",
+            button: "Start Cooperation",
+            steps: {
+                step1: {
+                    title: "Client fills out a brief",
+                    duration: "Duration: 1 day",
+                },
+                step2: {
+                    title: "Our team develops a marketing strategy and calculations",
+                    duration: "Duration: 2 days",
+                },
+                step3: {
+                    title: "Marketing research, analysis",
+                    duration: "Duration: 2 days",
+                },
+                step4: {
+                    title: "Setting up advertising campaigns, developing advertising creatives/keyword selection",
+                    duration: "Duration: 7 days",
+                },
+                step5: {
+                    title: "Launching advertising, working on optimization",
+                    duration: "Duration: 3 weeks",
+                },
+                step6: {
+                    title: "You receive the first leads and purchases",
+                    duration: "Duration: individually",    
+                },
+            }
+        },
     },
+
+
+
     ua: {
         pricing: 'Ціни',
         hero: {
@@ -98,6 +133,38 @@ export const translations = {
             title: "Наші досягнення",
             description: "Статистика наших клієнтів на різних платформах",
             button: "Безкоштовна консультація"
+        },
+        instructions: {
+            headline: "Інструкції",
+            title: "Як виглядає процес співпраці",
+            description: "В залежності від ваших маркетингових потреб, ми розробляємо робочий шлях для вашого бізнесу!",
+            button: "Почати співпрацю",
+            steps: {
+                step1: {
+                    title: "Клієнт заповнює бриф",
+                    duration: "Тривалість: 1 день",
+                },
+                step2: {
+                    title: "Наша команда розробляє маркетингову стратегію та розрахунки",
+                    duration: "Тривалість: 2 дні",
+                },
+                step3: {
+                    title: "Маркетингове дослідження, аналіз",
+                    duration: "Тривалість: 2 дні",
+                },
+                step4: {
+                    title: "Налаштування рекламних кампаній, розробка рекламних креативів/підбір ключових слів",
+                    duration: "Тривалість: 7 днів",
+                },
+                step5: {
+                    title: "Запуск реклами, робота над оптимізацією",
+                    duration: "Тривалість: 3 тижні",
+                },
+                step6: {
+                    title: "Ви отримуєте перші ліди і покупки",
+                    duration: "Тривалість: індивідуально",    
+                },
+            }
         },
     },
 }; 
