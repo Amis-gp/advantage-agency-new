@@ -10,9 +10,10 @@ export const translations = {
             button: "Start Cooperation",
         },
         stats: {
-            specialists: "We've gathered the best specialists in our team",
-            budget: "Average Advertising Budget Per Month",
-            cases: "Successful Cases Of Cooperation In Various Niches",
+            specialists: "Number Of Successful Projects",
+            budget: "Average Percentage Of Sales Growth In 3 Months",
+            cases: "Average Cooperation Duration With Clients",
+            months: "Months",
         },
         
         introduction: {
@@ -95,9 +96,10 @@ export const translations = {
             button: "Розпочати співпрацю",
         },
         stats: {
-            specialists: 'Ми збирали найкращих спеціалістів в нашу команду',
-            budget: 'Рекламні бюджети на місяць',
-            cases: 'Успішних кейсів співпраці в різноманітних нішах',
+            specialists: 'Кількість успішних проєктів',
+            budget: 'Середній відсоток зростання продажів за 3 місяці',
+            cases: 'Середня тривалість співпраці з клієнтами',
+            months: "Місяців",
         },
         introduction: {
             headline: "Вступ",

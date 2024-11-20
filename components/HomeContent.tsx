@@ -293,7 +293,7 @@ export default function HomeContent(): JSX.Element {
 
                 <div className="max-w-6xl mx-auto pt-28 relative">
                     <div className="text-center mb-16">
-                        <h1 className="text-5xl md:text-7xl font-bold mb-6 uppercase">
+                        <h1 className="text-4xl md:text-6xl font-bold mb-6 uppercase">
                             {t.hero.title}
                         </h1>
                         <p className="text-xl md:text-2xl max-w-3xl mx-auto text-gray-300">
@@ -359,19 +359,19 @@ export default function HomeContent(): JSX.Element {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         <div className="bg-zinc-900 p-8 rounded-lg border border-zinc-800 text-center hover:scale-105 hover:bg-zinc-800 transition-all duration-100"
                         onMouseEnter={() => playSound('hover_2')}>
-                            <h3 className="text-6xl font-bold mb-4">200%</h3>
+                            <h3 className="text-6xl font-bold mb-4">72</h3>
                             <p className="text-gray-400">{t.stats.specialists}</p>
                         </div>
                         
                         <div className="bg-zinc-900 p-8 rounded-lg border border-zinc-800 text-center hover:scale-105 hover:bg-zinc-800 transition-all duration-100"
                         onMouseEnter={() => playSound('hover_2')}>
-                            <h3 className="text-6xl font-bold mb-4">$5M</h3>
+                            <h3 className="text-6xl font-bold mb-4">43%</h3>
                             <p className="text-gray-400">{t.stats.budget}</p>
                         </div>
                         
                         <div className="bg-zinc-900 p-8 rounded-lg border border-zinc-800 text-center hover:scale-105 hover:bg-zinc-800 transition-all duration-100"
                         onMouseEnter={() => playSound('hover_2')}>
-                            <h3 className="text-6xl font-bold mb-4">1,000+</h3>
+                            <h3 className="text-6xl font-bold mb-4">7 <span className="text-6xl">{t.stats.months}</span></h3>
                             <p className="text-gray-400">{t.stats.cases}</p>
                         </div>
                     </div>
@@ -591,7 +591,7 @@ export default function HomeContent(): JSX.Element {
                     </motion.div>
 
                     <span className="text-red uppercase tracking-wider">{t.portfolio.headline}</span>
-                    <h2 className="text-white text-5xl md:text-7xl font-bold mt-2">{t.portfolio.title}</h2>
+                    <h2 className="text-white text-3xl md:text-5xl font-bold mt-2">{t.portfolio.title}</h2>
         
                     <div className="relative">
                         <button className="hidden xl:block swiper-button-prev absolute -left-16 top-1/2 -translate-y-1/2 z-20 w-[60px] h-[60px] rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white/10 transition-all duration-100 active:scale-90"
@@ -758,7 +758,7 @@ export default function HomeContent(): JSX.Element {
                         <div className="flex flex-col xl:flex-row xl:items-end justify-between xl:max-w-[80%] mx-auto">
                             <div>
                             <p className="text-red uppercase tracking-wider">{t.achievements.headline}</p>
-                                <h2 className="text-4xl md:text-6xl font-bold mt-2">{t.achievements.title}</h2>
+                                <h2 className="text-3xl md:text-5xl font-bold mt-2">{t.achievements.title}</h2>
                                 <p className="text-xl text-gray-600 mt-4">{t.achievements.description}</p>
                             </div>
                             <Link 
@@ -831,7 +831,7 @@ export default function HomeContent(): JSX.Element {
                 <div className="max-w-[1400px] mx-auto px-6">
                     <div className="sm:text-center">
                         <span className="text-red uppercase tracking-wider">{t.partners.headline}</span>
-                        <h2 className="text-white text-5xl md:text-7xl font-bold mt-2">{t.partners.title}</h2>
+                        <h2 className="text-white text-3xl md:text-5xl font-bold mt-2">{t.partners.title}</h2>
                     </div>
 
                     <div className="relative w-full overflow-hidden pt-10 md:pt-16 pb-2">
@@ -867,7 +867,89 @@ export default function HomeContent(): JSX.Element {
             </section>
 
             {/* How it works */}
+            <section className="bg-black pt-10 md:pt-20">
+                <div className="max-w-[1400px] mx-auto px-6">
+                    <span className="text-red uppercase tracking-wider">{t.introduction.headline}</span>
+                    <h2 className="text-white text-3xl md:text-5xl font-bold mt-2">{t.introduction.title}</h2>
+                    
 
+                    <div className="relative lg:w-1/2 md:ml-5 mt-12 md:mt-0">
+                    <div className="flex flex-col justify-between space-y-10 relative">
+                        <svg 
+                            className="absolute inset-0 w-full h-full pointer-events-none" 
+                            style={{ 
+                                stroke: '#D12923',
+                                strokeWidth: 2,
+                                fill: 'none',
+                                zIndex: 1
+                            }}
+                        >
+                            <path className="path-line" d="" />
+                        </svg>
+
+                        {[
+                            {
+                                icon: '/img/home/instruction-icon-1.svg',
+                                title: t.introduction.steps.step1
+                            },
+                            {
+                                icon: '/img/home/instruction-icon-2.svg',
+                                title: t.introduction.steps.step2
+                            },
+                            {
+                                icon: '/img/home/instruction-icon-3.svg',
+                                title: t.introduction.steps.step3
+                            },
+                            {
+                                icon: '/img/home/instruction-icon-4.svg',
+                                title: t.introduction.steps.step4
+                            },
+                            {
+                                icon: '/img/home/instruction-icon-5.svg',
+                                title: t.introduction.steps.step5
+                            },
+                            {
+                                icon: '/img/home/instruction-icon-6.svg',
+                                title: t.introduction.steps.step6
+                            },
+                            {
+                                icon: '/img/home/instruction-icon-7.svg',
+                                title: t.introduction.steps.step7
+                            }
+                        ].map((step, index) => (
+                            <div 
+                                key={index} 
+                                className={`z-10 flex items-center gap-8 opacity-0 animate-fadeIn ${index % 2 === 1 && index !== 1 ? 'ml-24' : ''} ${index==1 ? 'ml-16' : ''}`} 
+                                style={{ animationDelay: `${index * 0.2}s` }}
+                                ref={(el) => {
+                                    if (itemRefs.current) {
+                                        itemRefs.current[index] = el;
+                                    }
+                                }}
+                            >
+                                <div>
+                                    <div className="w-16 h-16 rounded-full bg-red flex items-center justify-center z-10 relative">
+                                        <Image src={step.icon} alt={step.title} width={32} height={32} loading="lazy" />
+                                    </div>    
+                                </div>
+                                <h3 className="text-white text-lg md:text-2xl font-semibold">
+                                    {step.title}
+                                </h3>
+                            </div>
+                        ))}
+                    </div>
+                    <div className="lg:hidden absolute -top-10 -left-80 opacity-80 animate-float">
+                        <Image src="/img/home/gradient-ball-1.svg" alt="Decorative lines" width={426} height={426} loading="lazy" priority={false} />
+                    </div>
+                    <div className="absolute bottom-5 -right-80 opacity-80 animate-float">
+                        <Image src="/img/home/gradient-ball-1.svg" alt="Decorative lines" width={426} height={426} loading="lazy" priority={false} />
+                    </div>
+                    <div className="hidden lg:block absolute -bottom-10 -right-[650px] w-[726px] h-[726px] opacity-40">
+                        <Image src="/img/home/lines.svg" alt="Decorative lines" width={726} height={726} loading="lazy" priority={false} />
+                    </div>
+                </div>
+                </div>
+            </section>
             
         </div>
     );
