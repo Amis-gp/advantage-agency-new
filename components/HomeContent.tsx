@@ -17,9 +17,44 @@ type SoundConfig = {
 
 export default function HomeContent(): JSX.Element {
 
+    // Додайте окремі стани для desktop і mobile версій
+    const [isDesktopVisible, setIsDesktopVisible] = useState(false);
+    const [isMobileVisible, setIsMobileVisible] = useState(false);
+    const desktopRef = useRef(null);
+    const mobileRef = useRef(null);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.target === desktopRef.current && entry.isIntersecting) {
+                        setIsDesktopVisible(true);
+                        observer.unobserve(entry.target);
+                    }
+                    if (entry.target === mobileRef.current && entry.isIntersecting) {
+                        setIsMobileVisible(true);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            },
+            {
+                threshold: 0.1
+            }
+        );
+
+        if (desktopRef.current) {
+            observer.observe(desktopRef.current);
+        }
+        if (mobileRef.current) {
+            observer.observe(mobileRef.current);
+        }
+
+        return () => observer.disconnect();
+    }, []);
+
     const { scrollY } = useScroll();
-    const rotate1 = useTransform(scrollY, [0, 10000], [0, 360]);
-    const rotate2 = useTransform(scrollY, [0, 10000], [0, -360]);
+    const rotate1 = useTransform(scrollY, [0, 3000], [0, 360]);
+    const rotate2 = useTransform(scrollY, [0, 3000], [0, -360]);
 
     const content = "EFFICIENCY GROWTH QUALITY SOLUTIONS INNOVATION CONNECT LEAD";
 
@@ -36,23 +71,23 @@ export default function HomeContent(): JSX.Element {
     const [sounds] = useState<Record<string, SoundConfig>>({
         hover_1: {
             audio: typeof Audio !== 'undefined' ? new Audio('/sound/hover-1.wav') : null,
-            volume: 0.7
+            volume: 0.5
         },
         hover_2: {
             audio: typeof Audio !== 'undefined' ? new Audio('/sound/hover-2.wav') : null,
-            volume: 0.3
+            volume: 0.1
         },
         flipCard: {
             audio: typeof Audio !== 'undefined' ? new Audio('/sound/flip-card.mp3') : null,
-            volume: 0.5
+            volume: 0.3
         },
         swoosh: {
             audio: typeof Audio !== 'undefined' ? new Audio('/sound/swoosh.mp3') : null,
-            volume: 0.2
+            volume: 0.1
         },
         click: {
             audio: typeof Audio !== 'undefined' ? new Audio('/sound/click.wav') : null,
-            volume: 1
+            volume: 0.6
         },
     });
     
@@ -120,6 +155,17 @@ export default function HomeContent(): JSX.Element {
 //portfolio
     const portfolioSlides = [
         {
+            title: 'accountant services',
+            date: '01.08.2024 - 01.09.2024',
+            image: '/img/portfolio/accountant-services.webp',
+            companyBudget: '$3 108',
+            averageLeadPrice: '$33,4',
+            numberOfLeads: '93',
+            numberOfSales: '',
+            costPerSale: '',
+            slug: '/v10',
+        },
+        {
             title: 'beauty salon',
             date: '04.01.2024 - 4.02.2024',
             image: '/img/portfolio/beauty-salon.webp',
@@ -175,9 +221,9 @@ export default function HomeContent(): JSX.Element {
             slug: '/v5',
         },
         {
-            title: 'constructions',
+            title: 'home improvement',
             date: '01.05.2024 - 31.05.2024',
-            image: '/img/portfolio/constructions.webp',
+            image: '/img/portfolio/home-improvement.webp',
             companyBudget: '',
             averageLeadPrice: '',
             numberOfLeads: '',
@@ -217,17 +263,6 @@ export default function HomeContent(): JSX.Element {
             numberOfSales: '',
             costPerSale: '',
             slug: '/v9',
-        },
-        {
-        title: 'accountant services',
-        date: '01.08.2024 - 01.09.2024',
-        image: '/img/portfolio/accountant-services.webp',
-        companyBudget: '$3 108',
-        averageLeadPrice: '$33,4',
-        numberOfLeads: '93',
-        numberOfSales: '',
-        costPerSale: '',
-        slug: '/v10',
         },
     ];
     const [flippedCards, setFlippedCards] = useState<{ [key: number]: boolean }>({});
@@ -386,24 +421,24 @@ export default function HomeContent(): JSX.Element {
                             </Link>
                         </div>
                     </div>
-                    <div className="hidden sm:block relative h-[300px] w-full">
+                    {/* PC */}
+                    <div ref={desktopRef} className="hidden sm:block relative h-[300px] w-full">
                         {[
-                            { text: "Agency", left: "5%", top: "10%" },
-                            { text: "Achievements", left: "17%", top: "35%", rotate: 10 },
-                            { text: "Best", left: "2%", top: "50%", rotate: -26 },
-                            { text: "Prospective", left: "35%", top: "58%", rotate: -9 },
-                            { text: "Success", left: "65%", top: "40%", rotate: -10 },
-                            { text: "Quality", left: "80%", top: "65%", },
+                            { icon: "/img/home/telegram.svg", left: "8%", bottom: "5%", rotate: -30, isIcon: true, istg: true },
                             { text: "Perfomans", left: "20%", bottom: "0%"},
                             { text: "Content", left: "55%", bottom: "3%", rotate: 10 },
-                            // Іконки
-                            { icon: "/img/home/telegram.svg", left: "8%", bottom: "5%", rotate: -30, isIcon: true, istg: true },
+                            { text: "Best", left: "2%", top: "50%", rotate: -26 },
+                            { text: "Prospective", left: "35%", top: "58%", rotate: -9 },
+                            { text: "Quality", left: "80%", top: "65%", },
+                            { text: "Achievements", left: "17%", top: "35%", rotate: 10 },
+                            { text: "Success", left: "65%", top: "40%", rotate: -10 },
+                            { text: "Agency", left: "5%", top: "10%" },
                             { icon: "/img/home/whatsapp.svg", left: "55%", top: "27%", rotate: -30, isIcon: true },
                             { icon: "/img/home/telegram.svg", left: "62%", top: "15%", rotate: -30, isIcon: true, istg: true },
                             { icon: "/img/home/instagram.svg", left: "90%", top: "15%", rotate: 10, isIcon: true }
                         ].map((item, index) => (
                             <div key={index}
-                                className={`absolute bg-red hover:bg-red/80 transition-all duration-100 rounded-full  text-black  ${item.isIcon ? 'flex items-center justify-center w-10 h-10' : 'rounded-[30px] px-6 py-3'} ${item.istg ? 'pr-1' : ''}`}
+                                className={`absolute bg-red hover:bg-red/80 transition-all duration-100 rounded-full text-black animate-fall ${isDesktopVisible ? 'visible' : ''} ${item.isIcon ? 'flex items-center justify-center w-10 h-10' : 'rounded-[30px] px-6 py-3'} ${item.istg ? 'pr-1' : ''}`}
                                 onMouseEnter={() => playSound('hover_2')}
                                 style={{
                                     left: item.left,
@@ -412,8 +447,9 @@ export default function HomeContent(): JSX.Element {
                                     fontSize: '20px',
                                     fontWeight: '500',
                                     lineHeight: '1',
-                                    transform: `rotate(${item.rotate}deg)`
-                                }}
+                                    '--rotation': `${item.rotate || 0}deg`,
+                                    animationDelay: `${index * 0.1}s`
+                                } as React.CSSProperties}
                             >
                                 {item.isIcon ? (
                                     <Image src={item.icon} alt="Icon" width={20} height={20} loading="lazy" /> ) : ( item.text
@@ -499,34 +535,35 @@ export default function HomeContent(): JSX.Element {
                     </div>
                 </div>
 
-                <div className="sm:hidden relative h-[300px] w-full">
+                {/* Mobile */}
+                <div ref={mobileRef}  className={`sm:hidden relative h-[300px] w-full ${isDesktopVisible ? 'visible' : ''}`}>
                     {[
-                        { text: "Agency", left: "2%", top: "30%", rotate: -12 },
-                        { text: "Best", left: "2%", top: "50%", rotate: -26 },
-                        { text: "Prospective", right: "8%", top: "57%", rotate: -15 },
-                        { text: "Success", left: "65%", top: "35%", rotate: -10 },
-                        { text: "Quality", left: "17%", top: "65%", },
+                        { icon: "/img/home/telegram.svg", left: "8%", bottom: "5%", rotate: -30, isIcon: true, istg: true },
                         { text: "Perfomans", left: "20%", bottom: "0%"},
                         { text: "Content", right: "0%", bottom: "3%", rotate: 10 },
-                        // icons
-                        { icon: "/img/home/telegram.svg", left: "8%", bottom: "5%", rotate: -30, isIcon: true, istg: true },
+                        { text: "Quality", left: "17%", top: "65%", },
+                        { icon: "/img/home/instagram.svg", right: "0%", bottom: "20%", rotate: 10, isIcon: true },
+                        { text: "Prospective", right: "8%", top: "57%", rotate: -15 },
+                        { text: "Best", left: "2%", top: "50%", rotate: -26 },
                         { icon: "/img/home/whatsapp.svg", left: "32%", top: "48%", rotate: -30, isIcon: true },
                         { icon: "/img/home/telegram.svg", left: "47%", top: "42%", rotate: -30, isIcon: true, istg: true },
-                        { icon: "/img/home/instagram.svg", right: "0%", bottom: "20%", rotate: 10, isIcon: true }
+                        { text: "Success", left: "65%", top: "35%", rotate: -10 },
+                        { text: "Agency", left: "2%", top: "30%", rotate: -12 },
                     ].map((item, index) => (
                         <div key={index}
-                            className={`absolute bg-red hover:bg-red/80 transition-all duration-100 rounded-full  text-black  ${item.isIcon ? 'flex items-center justify-center w-10 h-10' : 'rounded-[30px] px-6 py-3'} ${item.istg ? 'pr-1' : ''}`}
+                            className={`absolute bg-red hover:bg-red/80 transition-all duration-100 rounded-full animate-fall text-black  ${item.isIcon ? 'flex items-center justify-center w-10 h-10' : 'rounded-[30px] px-6 py-3'} ${item.istg ? 'pr-1' : ''}`}
                             onMouseEnter={() => playSound('hover_2')}
                             style={{
                                 left: item.left,
-                                right: item.right,
                                 top: item.top,
+                                right: item.right,
                                 bottom: item.bottom,
                                 fontSize: '18px',
                                 fontWeight: '500',
                                 lineHeight: '1',
-                                transform: `rotate(${item.rotate}deg)`
-                            }}
+                                '--rotation': `${item.rotate || 0}deg`,
+                                animationDelay: `${index * 0.1}s`
+                            } as React.CSSProperties}
                         >
                             {item.isIcon ? (
                                 <Image src={item.icon} alt="Icon" width={20} height={20} loading="lazy" /> ) : ( item.text
@@ -639,13 +676,13 @@ export default function HomeContent(): JSX.Element {
                                                         src={slide.image} 
                                                         alt={slide.title} 
                                                         fill
-                                                        className="object-cover brightness-75 rounded-[30px]"
+                                                        className="object-cover brightness-[0.7] rounded-[30px]"
                                                         loading="lazy" 
                                                     />
                                                 </div>
                                                 <div className="absolute inset-0 p-10 flex flex-col">
                                                     <div className="flex flex-col items-center justify-center h-full">
-                                                        <h3 className="text-white text-4xl md:text-5xl font-bold whitespace-pre-line text-center uppercase">{slide.title}</h3>
+                                                        <h3 className="text-white text-3xl md:text-4xl font-bold whitespace-pre-line text-center uppercase">{slide.title}</h3>
                                                         <p className="text-white mt-4 text-lg font-medium">{slide.date}</p>
                                                     </div>
                                                     <div className="absolute bottom-10 right-10 w-[48px] h-[48px] bg-white rounded-full flex items-center justify-center hover:bg-white/90 transition-colors text-black">
@@ -656,15 +693,15 @@ export default function HomeContent(): JSX.Element {
                                 
                                             <div className="absolute inset-0 rounded-[30px] bg-zinc-900 p-10 [transform:rotateY(180deg)] [backface-visibility:hidden] flex flex-col">
                                                 <div className="mt-5">
-                                                    <h4 className="text-white text-4xl md:text-5xl font-bold mb-6 uppercase">{slide.title}</h4>
+                                                    <h4 className="text-white text-3xl md:text-4xl font-bold mb-6 uppercase">{slide.title}</h4>
                                                     <div className="space-y-4 text-white/80 text-lg md:text-xl">
                                                         <div className="flex justify-between items-center">
                                                             <span>{t.portfolio.companyBudget}:</span>
-                                                            <span>{slide.companyBudget}$</span>
+                                                            <span>{slide.companyBudget}</span>
                                                         </div>
                                                         <div className="flex justify-between items-center">
                                                             <span>{t.portfolio.averageLeadPrice}:</span>
-                                                            <span>{slide.averageLeadPrice}$</span>
+                                                            <span>{slide.averageLeadPrice}</span>
                                                         </div>
                                                         <div className="flex justify-between items-center">
                                                             <span>{t.portfolio.numberOfLeads}:</span>
@@ -676,7 +713,7 @@ export default function HomeContent(): JSX.Element {
                                                         </div>
                                                         <div className="flex justify-between items-center">
                                                             <span>{t.portfolio.costPerSale}:</span>
-                                                            <span>{slide.costPerSale}$</span>
+                                                            <span>{slide.costPerSale}</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -726,7 +763,7 @@ export default function HomeContent(): JSX.Element {
                             </div>
                             <Link 
                                 href="#form" 
-                                className="mt-4 xl:mt-0 inline-flex items-center gap-2 w-fit bg-black text-white px-8 py-4 rounded-full hover:bg-black/90 transition-all duration-300"
+                                className="hover:scale-105 mt-4 xl:mt-0 inline-flex items-center gap-2 w-fit bg-black text-white px-8 py-4 rounded-full hover:bg-black/90 transition-all duration-300"
                                 onMouseEnter={() => playSound('hover_1')}
                             >
                                 {t.achievements.button}
@@ -804,7 +841,7 @@ export default function HomeContent(): JSX.Element {
                                     {[1, 2, 3, 4, 5, 6, 7].map((index) => (
                                         <div 
                                             key={`${containerIndex}-${index}`} 
-                                            className="h-[40px] md:h-[60px] w-auto px-8 flex-shrink-0 flex items-center justify-center"
+                                            className="h-[35px] md:h-[50px] w-auto px-8 md:px-12 flex-shrink-0 flex items-center justify-center"
                                         >
                                             <div className="h-full flex items-center justify-center">
                                                 <Image 
@@ -812,7 +849,7 @@ export default function HomeContent(): JSX.Element {
                                                     alt={`Partner logo ${index}`}
                                                     height={60}
                                                     width={400}
-                                                    className="h-full w-auto max-w-[300px] partner-logo"
+                                                    className="h-full w-auto max-w-[850px] partner-logo"
                                                     loading="lazy"
                                                     onMouseEnter={() => playSound('hover_2')}
                                                 />
@@ -822,13 +859,15 @@ export default function HomeContent(): JSX.Element {
                                 </div>
                             ))}
                         </div>
-                        
-                        {/* Градієнтні краї */}
+
                         <div className="absolute -left-2 top-0 bottom-0 w-20 bg-gradient-to-r from-black to-transparent z-10"></div>
                         <div className="absolute -right-2 top-0 bottom-0 w-20 bg-gradient-to-l from-black to-transparent z-10"></div>
                     </div>
                 </div>
             </section>
+
+            {/* How it works */}
+
             
         </div>
     );
