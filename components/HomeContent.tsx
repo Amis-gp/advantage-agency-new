@@ -9,6 +9,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import Instructions from './Instructions';
 
 type SoundConfig = {
     audio: HTMLAudioElement | null;
@@ -17,91 +18,32 @@ type SoundConfig = {
 
 export default function HomeContent(): JSX.Element {
 
-    // Додайте окремі стани для desktop і mobile версій
     const [isDesktopVisible, setIsDesktopVisible] = useState(false);
     const [isMobileVisible, setIsMobileVisible] = useState(false);
+    const [isLineVisible, setIsLineVisible] = useState(false);
+    const [pathD, setPathD] = useState('');
     const desktopRef = useRef(null);
     const mobileRef = useRef(null);
+    const lineRef = useRef(null);
+    const itemRefs = useRef<(HTMLDivElement | null)[]>(new Array(6).fill(null));
 
+    //fall animation
     useEffect(() => {
         const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.target === desktopRef.current && entry.isIntersecting) {
-                        setIsDesktopVisible(true);
-                        observer.unobserve(entry.target);
-                    }
-                    if (entry.target === mobileRef.current && entry.isIntersecting) {
-                        setIsMobileVisible(true);
-                        observer.unobserve(entry.target);
-                    }
-                });
-            },
-            {
-                threshold: 0.1
-            }
+        ([entry]) => {
+            setIsDesktopVisible(entry.isIntersecting);
+        },
+        { threshold: 0.1 }
         );
-
+    
         if (desktopRef.current) {
-            observer.observe(desktopRef.current);
+        observer.observe(desktopRef.current);
         }
-        if (mobileRef.current) {
-            observer.observe(mobileRef.current);
-        }
-
+    
         return () => observer.disconnect();
     }, []);
 
-    const { scrollY } = useScroll();
-    const rotate1 = useTransform(scrollY, [0, 3000], [0, 360]);
-    const rotate2 = useTransform(scrollY, [0, 3000], [0, -360]);
-
-    const content = "EFFICIENCY GROWTH QUALITY SOLUTIONS INNOVATION CONNECT LEAD";
-
-    const { language } = useLanguage();
-    const currentLanguage = (language || 'en') as keyof typeof translations;
-    const t = translations[currentLanguage];
-    const [isPlaying, setIsPlaying] = useState(false);
-
-    const handlePlayClick = () => {
-        playSound('click');
-        setIsPlaying(true);
-    };
-
-    const [sounds] = useState<Record<string, SoundConfig>>({
-        hover_1: {
-            audio: typeof Audio !== 'undefined' ? new Audio('/sound/hover-1.wav') : null,
-            volume: 0.5
-        },
-        hover_2: {
-            audio: typeof Audio !== 'undefined' ? new Audio('/sound/hover-2.wav') : null,
-            volume: 0.1
-        },
-        flipCard: {
-            audio: typeof Audio !== 'undefined' ? new Audio('/sound/flip-card.mp3') : null,
-            volume: 0.3
-        },
-        swoosh: {
-            audio: typeof Audio !== 'undefined' ? new Audio('/sound/swoosh.mp3') : null,
-            volume: 0.1
-        },
-        click: {
-            audio: typeof Audio !== 'undefined' ? new Audio('/sound/click.wav') : null,
-            volume: 0.6
-        },
-    });
-    
-    const playSound = (soundName: keyof typeof sounds) => {
-        const soundConfig = sounds[soundName];
-        if (soundConfig.audio) {
-            soundConfig.audio.currentTime = 0;
-            soundConfig.audio.volume = soundConfig.volume;
-            soundConfig.audio.play();
-        }
-    };
-    const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
-
-//line
+   //line
     useEffect(() => {
         const updatePath = () => {
             const elements = itemRefs.current.filter(el => el !== null);
@@ -152,7 +94,54 @@ export default function HomeContent(): JSX.Element {
         };
     }, []);
 
-//portfolio
+    const { scrollY } = useScroll();
+    const rotate1 = useTransform(scrollY, [0, 3000], [0, 360]);
+    const rotate2 = useTransform(scrollY, [0, 3000], [0, -360]);
+
+    const content = "EFFICIENCY GROWTH QUALITY SOLUTIONS INNOVATION CONNECT LEAD";
+
+    const { language } = useLanguage();
+    const currentLanguage = (language || 'en') as keyof typeof translations;
+    const t = translations[currentLanguage];
+    const [isPlaying, setIsPlaying] = useState(false);
+
+    const handlePlayClick = () => {
+        playSound('click');
+        setIsPlaying(true);
+    };
+
+    const [sounds] = useState<Record<string, SoundConfig>>({
+        hover_1: {
+            audio: typeof Audio !== 'undefined' ? new Audio('/sound/hover-1.wav') : null,
+            volume: 0.5
+        },
+        hover_2: {
+            audio: typeof Audio !== 'undefined' ? new Audio('/sound/hover-2.wav') : null,
+            volume: 0.1
+        },
+        flipCard: {
+            audio: typeof Audio !== 'undefined' ? new Audio('/sound/flip-card.mp3') : null,
+            volume: 0.3
+        },
+        swoosh: {
+            audio: typeof Audio !== 'undefined' ? new Audio('/sound/swoosh.mp3') : null,
+            volume: 0.1
+        },
+        click: {
+            audio: typeof Audio !== 'undefined' ? new Audio('/sound/click.wav') : null,
+            volume: 0.6
+        },
+    });
+    
+    const playSound = (soundName: keyof typeof sounds) => {
+        const soundConfig = sounds[soundName];
+        if (soundConfig.audio) {
+            soundConfig.audio.currentTime = 0;
+            soundConfig.audio.volume = soundConfig.volume;
+            soundConfig.audio.play();
+        }
+    };
+
     const portfolioSlides = [
         {
             title: 'accountant services',
@@ -475,31 +464,31 @@ export default function HomeContent(): JSX.Element {
 
                         {[
                             {
-                                icon: '/img/home/instruction-icon-1.svg',
+                                icon: '/img/home/introduction-icon-1.svg',
                                 title: t.introduction.steps.step1
                             },
                             {
-                                icon: '/img/home/instruction-icon-2.svg',
+                                icon: '/img/home/introduction-icon-2.svg',
                                 title: t.introduction.steps.step2
                             },
                             {
-                                icon: '/img/home/instruction-icon-3.svg',
+                                icon: '/img/home/introduction-icon-3.svg',
                                 title: t.introduction.steps.step3
                             },
                             {
-                                icon: '/img/home/instruction-icon-4.svg',
+                                icon: '/img/home/introduction-icon-4.svg',
                                 title: t.introduction.steps.step4
                             },
                             {
-                                icon: '/img/home/instruction-icon-5.svg',
+                                icon: '/img/home/introduction-icon-5.svg',
                                 title: t.introduction.steps.step5
                             },
                             {
-                                icon: '/img/home/instruction-icon-6.svg',
+                                icon: '/img/home/introduction-icon-6.svg',
                                 title: t.introduction.steps.step6
                             },
                             {
-                                icon: '/img/home/instruction-icon-7.svg',
+                                icon: '/img/home/introduction-icon-7.svg',
                                 title: t.introduction.steps.step7
                             }
                         ].map((step, index) => (
@@ -865,91 +854,8 @@ export default function HomeContent(): JSX.Element {
                     </div>
                 </div>
             </section>
-
-            {/* How it works */}
-            <section className="bg-black pt-10 md:pt-20">
-                <div className="max-w-[1400px] mx-auto px-6">
-                    <span className="text-red uppercase tracking-wider">{t.introduction.headline}</span>
-                    <h2 className="text-white text-3xl md:text-5xl font-bold mt-2">{t.introduction.title}</h2>
-                    
-
-                    <div className="relative lg:w-1/2 md:ml-5 mt-12 md:mt-0">
-                    <div className="flex flex-col justify-between space-y-10 relative">
-                        <svg 
-                            className="absolute inset-0 w-full h-full pointer-events-none" 
-                            style={{ 
-                                stroke: '#D12923',
-                                strokeWidth: 2,
-                                fill: 'none',
-                                zIndex: 1
-                            }}
-                        >
-                            <path className="path-line" d="" />
-                        </svg>
-
-                        {[
-                            {
-                                icon: '/img/home/instruction-icon-1.svg',
-                                title: t.introduction.steps.step1
-                            },
-                            {
-                                icon: '/img/home/instruction-icon-2.svg',
-                                title: t.introduction.steps.step2
-                            },
-                            {
-                                icon: '/img/home/instruction-icon-3.svg',
-                                title: t.introduction.steps.step3
-                            },
-                            {
-                                icon: '/img/home/instruction-icon-4.svg',
-                                title: t.introduction.steps.step4
-                            },
-                            {
-                                icon: '/img/home/instruction-icon-5.svg',
-                                title: t.introduction.steps.step5
-                            },
-                            {
-                                icon: '/img/home/instruction-icon-6.svg',
-                                title: t.introduction.steps.step6
-                            },
-                            {
-                                icon: '/img/home/instruction-icon-7.svg',
-                                title: t.introduction.steps.step7
-                            }
-                        ].map((step, index) => (
-                            <div 
-                                key={index} 
-                                className={`z-10 flex items-center gap-8 opacity-0 animate-fadeIn ${index % 2 === 1 && index !== 1 ? 'ml-24' : ''} ${index==1 ? 'ml-16' : ''}`} 
-                                style={{ animationDelay: `${index * 0.2}s` }}
-                                ref={(el) => {
-                                    if (itemRefs.current) {
-                                        itemRefs.current[index] = el;
-                                    }
-                                }}
-                            >
-                                <div>
-                                    <div className="w-16 h-16 rounded-full bg-red flex items-center justify-center z-10 relative">
-                                        <Image src={step.icon} alt={step.title} width={32} height={32} loading="lazy" />
-                                    </div>    
-                                </div>
-                                <h3 className="text-white text-lg md:text-2xl font-semibold">
-                                    {step.title}
-                                </h3>
-                            </div>
-                        ))}
-                    </div>
-                    <div className="lg:hidden absolute -top-10 -left-80 opacity-80 animate-float">
-                        <Image src="/img/home/gradient-ball-1.svg" alt="Decorative lines" width={426} height={426} loading="lazy" priority={false} />
-                    </div>
-                    <div className="absolute bottom-5 -right-80 opacity-80 animate-float">
-                        <Image src="/img/home/gradient-ball-1.svg" alt="Decorative lines" width={426} height={426} loading="lazy" priority={false} />
-                    </div>
-                    <div className="hidden lg:block absolute -bottom-10 -right-[650px] w-[726px] h-[726px] opacity-40">
-                        <Image src="/img/home/lines.svg" alt="Decorative lines" width={726} height={726} loading="lazy" priority={false} />
-                    </div>
-                </div>
-                </div>
-            </section>
+            
+            <Instructions translations={t}/>
             
         </div>
     );

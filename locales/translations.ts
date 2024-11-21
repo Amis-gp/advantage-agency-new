@@ -59,27 +59,27 @@ export const translations = {
             steps: {
                 step1: {
                     title: "Client fills out a brief",
-                    duration: "Duration: 1 day",
+                    duration: "Duration 1 day",
                 },
                 step2: {
-                    title: "Our team develops a marketing strategy and calculations",
-                    duration: "Duration: 2 days",
+                    title: "Marketing research, analysis",
+                    duration: "Duration 2 days",
                 },
                 step3: {
-                    title: "Marketing research, analysis",
-                    duration: "Duration: 2 days",
+                    title: "Our team develops a marketing strategy and calculations",
+                    duration: "Duration 2 days",
                 },
                 step4: {
                     title: "Setting up advertising campaigns, developing advertising creatives/keyword selection",
-                    duration: "Duration: 7 days",
+                    duration: "Duration 7 days",
                 },
                 step5: {
                     title: "Launching advertising, working on optimization",
-                    duration: "Duration: 3 weeks",
+                    duration: "Duration 3 weeks",
                 },
                 step6: {
                     title: "You receive the first leads and purchases",
-                    duration: "Duration: individually",    
+                    duration: "Duration individually",    
                 },
             }
         },
@@ -147,11 +147,11 @@ export const translations = {
                     duration: "Тривалість: 1 день",
                 },
                 step2: {
-                    title: "Наша команда розробляє маркетингову стратегію та розрахунки",
+                    title: "Маркетингове дослідження, аналіз",
                     duration: "Тривалість: 2 дні",
                 },
                 step3: {
-                    title: "Маркетингове дослідження, аналіз",
+                    title: "Наша команда розробляє маркетингову стратегію та розрахунки",
                     duration: "Тривалість: 2 дні",
                 },
                 step4: {
