@@ -1085,6 +1085,9 @@ video {
 .animate-\[bounceX_1s_ease-in-out_infinite\] {
   animation: bounceX 1s ease-in-out infinite;
 }
+.animate-\[fall_0\.5s_ease-out_forwards\] {
+  animation: fall 0.5s ease-out forwards;
+}
 @keyframes bounce {
 
   0%, 100% {

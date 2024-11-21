@@ -30,14 +30,22 @@ export default function HomeContent(): JSX.Element {
     //fall animation
     useEffect(() => {
         const observer = new IntersectionObserver(
-        ([entry]) => {
-            setIsDesktopVisible(entry.isIntersecting);
-        },
-        { threshold: 0.1 }
+            ([entry]) => {
+                if (entry.target === desktopRef.current) {
+                    setIsDesktopVisible(entry.isIntersecting);
+                } else if (entry.target === mobileRef.current) {
+                    setIsMobileVisible(entry.isIntersecting);
+                }
+            },
+            { threshold: 0.1 }
         );
     
         if (desktopRef.current) {
-        observer.observe(desktopRef.current);
+            observer.observe(desktopRef.current);
+        }
+        
+        if (mobileRef.current) {
+            observer.observe(mobileRef.current);
         }
     
         return () => observer.disconnect();
@@ -525,7 +533,10 @@ export default function HomeContent(): JSX.Element {
                 </div>
 
                 {/* Mobile */}
-                <div ref={mobileRef}  className={`sm:hidden relative h-[300px] w-full ${isDesktopVisible ? 'visible' : ''}`}>
+                <div 
+                    ref={mobileRef} 
+                    className="block sm:hidden relative h-[300px] w-full"
+                >
                     {[
                         { icon: "/img/home/telegram.svg", left: "8%", bottom: "5%", rotate: -30, isIcon: true, istg: true },
                         { text: "Perfomans", left: "20%", bottom: "0%"},
@@ -538,27 +549,52 @@ export default function HomeContent(): JSX.Element {
                         { icon: "/img/home/telegram.svg", left: "47%", top: "42%", rotate: -30, isIcon: true, istg: true },
                         { text: "Success", left: "65%", top: "35%", rotate: -10 },
                         { text: "Agency", left: "2%", top: "30%", rotate: -12 },
-                    ].map((item, index) => (
-                        <div key={index}
-                            className={`absolute bg-red hover:bg-red/80 transition-all duration-100 rounded-full animate-fall text-black  ${item.isIcon ? 'flex items-center justify-center w-10 h-10' : 'rounded-[30px] px-6 py-3'} ${item.istg ? 'pr-1' : ''}`}
-                            onMouseEnter={() => playSound('hover_2')}
-                            style={{
-                                left: item.left,
-                                top: item.top,
-                                right: item.right,
-                                bottom: item.bottom,
-                                fontSize: '18px',
-                                fontWeight: '500',
-                                lineHeight: '1',
-                                '--rotation': `${item.rotate || 0}deg`,
-                                animationDelay: `${index * 0.1}s`
-                            } as React.CSSProperties}
-                        >
-                            {item.isIcon ? (
-                                <Image src={item.icon} alt="Icon" width={20} height={20} loading="lazy" /> ) : ( item.text
-                            )}
-                        </div>
-                    ))}
+                    ].map((item, index) => {
+                        const rotation = item.rotate || 0;
+                        const animationName = `fall-rotate-${rotation}`.replace(/[^a-zA-Z0-9]/g, '_');
+                        
+                        return (
+                            <div 
+                                key={index}
+                                className={`absolute bg-red hover:bg-red/80 transition-all duration-100 rounded-full text-black opacity-0 ${item.isIcon ? 'w-10 h-10' : 'px-6 py-3'} ${item.istg ? 'pr-1' : ''} opacity-0 ${item.isIcon ? 'w-10 h-10' : 'px-6 py-3'} ${item.istg ? 'pr-1' : ''}`}
+                                onMouseEnter={() => playSound('hover_2')}
+                                style={{
+                                    left: item.left || 'auto',
+                                    top: item.top || 'auto',
+                                    right: item.right || 'auto',
+                                    bottom: item.bottom || 'auto',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    animation: `${animationName} 0.5s ease-out forwards ${index * 0.1}s`,
+                                }}
+                            >
+                                {item.isIcon ? (
+                                    <Image 
+                                        src={item.icon} 
+                                        alt="Icon" 
+                                        width={20} 
+                                        height={20} 
+                                        loading="lazy"
+                                    /> 
+                                ) : ( 
+                                    <span className="whitespace-nowrap">{item.text}</span>
+                                )}
+                                <style jsx>{`
+                                    @keyframes ${animationName} {
+                                        0% {
+                                            opacity: 0;
+                                            transform: translateY(-20px) rotate(${rotation}deg);
+                                        }
+                                        100% {
+                                            opacity: 1;
+                                            transform: translateY(0) rotate(${rotation}deg);
+                                        }
+                                    }
+                                `}</style>
+                            </div>
+                        );
+                    })}
                 </div>
             </section>
 
