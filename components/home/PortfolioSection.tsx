@@ -8,6 +8,8 @@ import { Navigation, Pagination } from 'swiper/modules';
 import { motion, useTransform, useScroll } from 'framer-motion';
 import { playSound } from '@/app/constant/sound';
 import { portfolioSlides } from '@/app/constant/portfolioSlides';
+import 'swiper/css/navigation';
+
 export default function PortfolioSection() {
     const t = useTranslations();
     const [flippedCards, setFlippedCards] = useState<{ [key: number]: boolean }>({});
@@ -17,6 +19,7 @@ export default function PortfolioSection() {
 
     return (
         <section className="bg-black relative py-10 md:py-20 px-6 relative overflow-hidden">
+                
             <motion.div className="absolute top-32 right-14 w-4 h-4 sm:w-8 sm:h-8" style={{ rotate: rotate2 }}>
                 <Image src="/img/home/star.svg" alt="Star" width={64} height={64} loading="lazy" priority={false} />
             </motion.div>
@@ -27,6 +30,7 @@ export default function PortfolioSection() {
                 <Image src="/img/home/gradient-ball-1.svg" alt="Decorative lines" width={226} height={226} loading="lazy" priority={false} />
             </div>
             <div className="max-w-6xl mx-auto relative">
+                
                 <motion.div className="hidden xl:block absolute -top-16 -left-20 w-auto h-auto" style={{ rotate: rotate2 }}>
                     <Image src="/img/home/star.svg" alt="Star" width={64} height={64} loading="lazy" priority={false} />
                 </motion.div>
@@ -35,11 +39,11 @@ export default function PortfolioSection() {
                 <h2 className="text-white text-3xl md:text-5xl font-bold mt-2">{t('portfolio.title')}</h2>
 
                 <div className="relative">
-                    <button className="hidden xl:block swiper-button-prev absolute -left-16 top-1/2 -translate-y-1/2 z-20 w-[60px] h-[60px] rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white/10 transition-all duration-100 active:scale-90"
+                    <button className="hidden xl:block swiper-button-prev absolute !-left-16 top-1/2 -translate-y-1/2 z-20 !w-[60px] !h-[60px] rounded-full border border-white/20 flex items-center justify-center !text-white hover:bg-white/10 transition-all duration-100 active:scale-90"
                         onClick={() => playSound('click')} >
                         ←
                     </button>
-                    <button className="hidden xl:block swiper-button-next absolute -right-16 top-1/2 -translate-y-1/2 z-20 w-[60px] h-[60px] rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white/10 transition-all duration-100 active:scale-90"
+                    <button className="hidden xl:block swiper-button-next absolute !-right-16 top-1/2 -translate-y-1/2 z-20 !w-[60px] !h-[60px] rounded-full border border-white/20 flex items-center justify-center !text-white hover:bg-white/10 transition-all duration-100 active:scale-90"
                     onClick={() => playSound('click')}>
                         →
                     </button>

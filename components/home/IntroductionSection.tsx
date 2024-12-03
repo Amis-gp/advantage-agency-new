@@ -6,21 +6,63 @@ import Link from 'next/link';
 import { playSound } from '@/app/constant/sound';
 
 export default function IntroductionSection() {
-    const t = useTranslations();
+    const t = useTranslations("introduction");
     const desktopRef = useRef<HTMLDivElement>(null);
     const mobileRef = useRef<HTMLDivElement>(null);
     const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
     const isDesktopVisible = true;
 
-    const updatePath = () => {
-        const pathElement = document.querySelector('.path-line') as SVGPathElement;
-        if (pathElement) {
-            pathElement.setAttribute('d', 'M10 10 H 90 V 90 H 10 L 10 10');
-        }
-    };
-
     useEffect(() => {
+        const updatePath = () => {
+            const elements = itemRefs.current.filter(el => el !== null);
+            if (elements.length < 2) return;
+
+            let path = '';
+            elements.forEach((el, index) => {
+                if (!el) return;
+                
+                const rect = el.getBoundingClientRect();
+                const containerRect = el.closest('.flex-col')?.getBoundingClientRect() || { left: 0, top: 0 };
+                
+                const x = rect.left - containerRect.left + 32;
+                const y = rect.top - containerRect.top + 32;
+
+                if (index === 0) {
+                    path += `M ${x} ${y}`;
+                } else {
+                    const prevRect = elements[index - 1]?.getBoundingClientRect();
+                    if (!prevRect) return;
+                    
+                    const prevX = prevRect.left - containerRect.left + 32;
+                    const prevY = prevRect.top - containerRect.top + 32;
+                    
+                    const midY = (prevY + y) / 2;
+                    const controlPoint1X = prevX;
+                    const controlPoint1Y = midY;
+                    const controlPoint2X = x;
+                    const controlPoint2Y = midY;
+                    
+                    path += ` C ${controlPoint1X} ${controlPoint1Y}, ${controlPoint2X} ${controlPoint2Y}, ${x} ${y}`;
+                }
+            });
+
+            const svgPath = document.querySelector('.path-line');
+            if (svgPath) {
+                svgPath.setAttribute('d', path);
+            }
+        };
+
         updatePath();
+        window.addEventListener('resize', updatePath);
+        window.addEventListener('scroll', updatePath);
+        
+        const timeoutId = setTimeout(updatePath, 100);
+        
+        return () => {
+            window.removeEventListener('resize', updatePath);
+            window.removeEventListener('scroll', updatePath);
+            clearTimeout(timeoutId);
+        };
     }, []);
 
     return (
@@ -28,15 +70,15 @@ export default function IntroductionSection() {
             <div className="lg:w-1/2 flex flex-col justify-between">
                 <div className="md:max-w-[440px]">
                     <p className="text-red md:text-lg font-medium tracking-wide">
-                        {t('introduction.headline')}
+                        {t('headline')}
                     </p>
                     
                     <h1 className="mt-1 text-3xl md:text-5xl font-bold text-white leading-tight">
-                        {t('introduction.title')}
+                        {t('title')}
                     </h1>
                     
                     <p className="mt-7 text-[#d3d3d3] md:text-lg leading-relaxed">
-                        {t('introduction.description')}
+                        {t('description')}
                     </p>
 
                     <div className="w-fit mt-4 hover:scale-105 transition-all duration-100">
@@ -105,31 +147,31 @@ export default function IntroductionSection() {
                     {[
                         {
                             icon: '/img/home/introduction-icon-1.svg',
-                            title: t('introduction.steps.step1')
+                            title: t('steps.step1')
                         },
                         {
                             icon: '/img/home/introduction-icon-2.svg',
-                            title: t('introduction.steps.step2')
+                            title: t('steps.step2')
                         },
                         {
                             icon: '/img/home/introduction-icon-3.svg',
-                            title: t('introduction.steps.step3')
+                            title: t('steps.step3')
                         },
                         {
                             icon: '/img/home/introduction-icon-4.svg',
-                            title: t('introduction.steps.step4')
+                            title: t('steps.step4')
                         },
                         {
                             icon: '/img/home/introduction-icon-5.svg',
-                            title: t('introduction.steps.step5')
+                            title: t('steps.step5')
                         },
                         {
                             icon: '/img/home/introduction-icon-6.svg',
-                            title: t('introduction.steps.step6')
+                            title: t('steps.step6')
                         },
                         {
                             icon: '/img/home/introduction-icon-7.svg',
-                            title: t('introduction.steps.step7')
+                            title: t('steps.step7')
                         }
                     ].map((step, index) => (
                         <div 
@@ -229,5 +271,6 @@ export default function IntroductionSection() {
                 })}
             </div>
         </section>
+
     );
 }

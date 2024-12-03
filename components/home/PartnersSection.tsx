@@ -32,6 +32,7 @@ export default function PartnersSection() {
                                                 className="h-full w-auto max-w-[850px] partner-logo"
                                                 loading="lazy"
                                                 onMouseEnter={() => playSound('hover_2')}
+                                                draggable={false}
                                             />
                                         </div>
                                     </div>

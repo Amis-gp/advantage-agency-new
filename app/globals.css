@@ -146,3 +146,8 @@
 .animate-pulse-border-black {
   animation: pulse-border-black 2s infinite;
 }
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+    display: none !important;
+}

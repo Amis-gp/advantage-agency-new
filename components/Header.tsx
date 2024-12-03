@@ -34,7 +34,7 @@ export default function Header(): JSX.Element {
         <header className="text-white pt-6 px-6 absolute top-0 left-0 w-full z-50">
             <div className="max-w-6xl mx-auto flex justify-between items-left">
                 <Link href={`/${locale}`} className="flex items-center gap-2">
-                    <Image src="./img/home/logo.svg" alt="Advantage Agency" width={243} height={55} loading="lazy" priority={false} className="h-7 sm:h-auto w-fit"/>
+                    <Image src="./img/logo.svg" alt="Advantage Agency" width={243} height={55} loading="lazy" priority={false} className="h-7 sm:h-auto w-fit"/>
                 </Link>
                 <div className="flex items-center gap-4">
                     <div className="relative" ref={dropdownRef}>

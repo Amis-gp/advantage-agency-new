@@ -7,6 +7,7 @@ import StatsSection from '@/components/home/StatsSection';
 import PartnersSection from '@/components/home/PartnersSection';
 import Instructions from '@/components/home/InstructionsSection';
 import TeamSection from '@/components/home/TeamSection';
+import Footer from '@/components/Footer';
 
 export default function Home() {
   return (
@@ -21,6 +22,8 @@ export default function Home() {
         <PartnersSection />
         <Instructions />
         <TeamSection />
+
+        <Footer />
       </main>
     </div>
   );
