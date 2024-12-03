@@ -1,5 +1,9 @@
 import { useEffect, useRef } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
+import { useLanguage } from '@/context/LanguageContext';
+import { playSound } from '@/app/constant/sound';
+
 
 type TranslationType = {
     introduction: {
@@ -21,8 +25,9 @@ interface InstructionsProps {
 }
 
 export const Instructions = ({ translations }: InstructionsProps) => {
-    const circleRefs = useRef<(HTMLDivElement | null)[]>(new Array(6).fill(null));
-
+    const circleRefs = useRef<(HTMLDivElement | null)[]>([]);
+    const { t } = useLanguage();
+    
     useEffect(() => {
         const updatePath = () => {
             const circles = circleRefs.current.filter(el => el !== null);
@@ -95,13 +100,29 @@ export const Instructions = ({ translations }: InstructionsProps) => {
         <section className="bg-black pt-10 md:pt-20">
             <div className="max-w-[1400px] mx-auto px-6">
                 <span className="text-red uppercase tracking-wider">
-                    {translations.instructions.headline}
+                    {t.instructions.headline}
                 </span>
                 <h2 className="text-white text-3xl md:text-5xl font-bold mt-2">
-                    {translations.instructions.title}
+                    {t.instructions.title}
                 </h2>
+                
+                <div className="md:flex justify-between w-full">
+                    <p className="text-white/70 mt-4 md:text-lg">{t.instructions.description}</p>
+                
+                    <div className="w-fit mt-4 hover:scale-105 transition-all duration-100">
+                        <Link href="#form" 
+                            className="group relative bg-white hover:bg-white/90 transition-all duration-300 text-black px-8 py-4 rounded-full text-lg font-medium flex items-center gap-2" 
+                            onMouseEnter={() => playSound('hover_1')}
+                        >
+                            <span className="relative z-10">{t.instructions.button}</span>
+                            <span className="relative z-10 animate-[bounceX_1s_ease-in-out_infinite]">→</span>
+                            <div className="absolute inset-0 rounded-full animate-pulse-border group-hover:animate-none"></div>
+                        </Link>
+                    </div>
+                </div>
 
-                <div className="grid grid-cols-2 gap-4 relative mt-16 md:mt-32">
+
+                <div className="grid grid-cols-2 gap-4 relative mt-32 md:mt-32">
                     <svg 
                         className="steps-connection-svg absolute inset-0 w-full h-full" 
                         style={{ 
@@ -131,24 +152,28 @@ export const Instructions = ({ translations }: InstructionsProps) => {
                         >
                             <div className="relative rounded-2xl border border-white/90 bg-black p-3 md:p-12 space-y-4 md:space-y-10 animate-fadeIn max-w-[200px] md:max-w-[350px] h-fit w-full">
                                 <p className="text-white text-xs sm:text-base md:text-xl font-semibold">
-                                    {translations.instructions.steps[`step${index + 1}` as keyof typeof translations.instructions.steps].title}
+                                    {t.instructions.steps[`step${index + 1}` as keyof typeof t.instructions.steps].title}
                                 </p>
                                 <div 
-                                    ref={el => circleRefs.current[index] = el}
+                                    ref={(el) => {
+                                        if (circleRefs.current) {
+                                            circleRefs.current[index] = el;
+                                        }
+                                    }}
                                     className={`absolute ${index % 2 === 0 ? '-top-28 left-16' : '-top-28 right-16'} ${index === 0 ? '!top-28 !left-auto !-right-12' : ''} flex justify-center items-center w-10 h-10 md:w-16 md:h-16 xl:w-24 xl:h-24 z-30 bg-red rounded-full`}
                                 >
                                     <span className="text-sm md:text-xl xl:text-4xl font-semibold">{`${index + 1}`}</span>
                                 </div>
                                 <Image 
                                     src={`/img/home/instruction-icon-${index + 1}.webp`} 
-                                    alt={translations.instructions.steps[`step${index + 1}` as keyof typeof translations.instructions.steps].title} 
+                                    alt={t.instructions.steps[`step${index + 1}` as keyof typeof t.instructions.steps].title} 
                                     width={200} 
                                     height={150} 
                                     loading="lazy" 
                                 />
                                 <div className="text-center gap-2 text-white border border-white rounded-3xl py-2 md:py-4 px-4 md:px-3">
                                     <span className="text-xs sm:text-base md:text-xl">
-                                        {translations.instructions.steps[`step${index + 1}` as keyof typeof translations.instructions.steps].duration}
+                                        {t.instructions.steps[`step${index + 1}` as keyof typeof t.instructions.steps].duration}
                                     </span>
                                 </div>
                             </div>

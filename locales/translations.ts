@@ -83,6 +83,40 @@ export const translations = {
                 },
             }
         },
+        team: {
+            headline: "Team",
+            title: "Meet the team",
+            members: {
+                member1: {
+                    name: "Stepan",
+                    position: "Founder",
+                },
+                member2: {
+                    name: "Marko",
+                    position: "Team Lead, Media Buyer Facebook",
+                },
+                member3: {
+                    name: "Pavlo",
+                    position: "Team Lead, Media Buyer Google",
+                },
+                member4: {
+                    name: "Pavlo",
+                    position: "developer, Media Buyer Facebook",
+                },
+                member5: {
+                    name: "Marko",
+                    position: "Team Lead, Media Buyer Facebook",
+                },
+                member6: {
+                    name: "Pavlo",
+                    position: "Team Lead, Media Buyer Google",
+                },
+                member7: {
+                    name: "Pavlo",
+                    position: "developer, Media Buyer Facebook",
+                },
+            }
+        },
     },
 
 
@@ -165,6 +199,40 @@ export const translations = {
                 step6: {
                     title: "Ви отримуєте перші ліди і покупки",
                     duration: "Тривалість: індивідуально",    
+                },
+            }
+        },
+        team: {
+            headline: "Команда",
+            title: "Познайомтесь з командою",
+            members: {
+                member1: {
+                    name: "Степан",
+                    position: "Founder",
+                },
+                member2: {
+                    name: "Марко",
+                    position: "Team Lead, Media Buyer Facebook",
+                },
+                member3: {
+                    name: "Павло",
+                    position: "Team Lead, Media Buyer Google",
+                },
+                member4: {
+                    name: "Павло",
+                    position: "developer, Media Buyer Facebook",
+                },
+                member5: {
+                    name: "Марко",
+                    position: "Team Lead, Media Buyer Facebook",
+                },
+                member6: {
+                    name: "Павло",
+                    position: "Team Lead, Media Buyer Google",
+                },
+                member7: {
+                    name: "Павло",
+                    position: "developer, Media Buyer Facebook",
                 },
             }
         },

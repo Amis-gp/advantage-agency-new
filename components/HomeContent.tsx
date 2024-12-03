@@ -10,11 +10,8 @@ import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import Instructions from './Instructions';
-
-type SoundConfig = {
-    audio: HTMLAudioElement | null;
-    volume: number;
-};
+import { portfolioSlides } from '@/app/constant/portfolioSlides';
+import { playSound } from '@/app/constant/sound';
 
 export default function HomeContent(): JSX.Element {
 
@@ -118,152 +115,10 @@ export default function HomeContent(): JSX.Element {
         setIsPlaying(true);
     };
 
-    const [sounds] = useState<Record<string, SoundConfig>>({
-        hover_1: {
-            audio: typeof Audio !== 'undefined' ? new Audio('/sound/hover-1.wav') : null,
-            volume: 0.5
-        },
-        hover_2: {
-            audio: typeof Audio !== 'undefined' ? new Audio('/sound/hover-2.wav') : null,
-            volume: 0.1
-        },
-        flipCard: {
-            audio: typeof Audio !== 'undefined' ? new Audio('/sound/flip-card.mp3') : null,
-            volume: 0.3
-        },
-        swoosh: {
-            audio: typeof Audio !== 'undefined' ? new Audio('/sound/swoosh.mp3') : null,
-            volume: 0.1
-        },
-        click: {
-            audio: typeof Audio !== 'undefined' ? new Audio('/sound/click.wav') : null,
-            volume: 0.6
-        },
-    });
     
-    const playSound = (soundName: keyof typeof sounds) => {
-        const soundConfig = sounds[soundName];
-        if (soundConfig.audio) {
-            soundConfig.audio.currentTime = 0;
-            soundConfig.audio.volume = soundConfig.volume;
-            soundConfig.audio.play();
-        }
-    };
 
-    const portfolioSlides = [
-        {
-            title: 'accountant services',
-            date: '01.08.2024 - 01.09.2024',
-            image: '/img/portfolio/accountant-services.webp',
-            companyBudget: '$3 108',
-            averageLeadPrice: '$33,4',
-            numberOfLeads: '93',
-            numberOfSales: '',
-            costPerSale: '',
-            slug: '/v10',
-        },
-        {
-            title: 'beauty salon',
-            date: '04.01.2024 - 4.02.2024',
-            image: '/img/portfolio/beauty-salon.webp',
-            companyBudget: '',
-            averageLeadPrice: '',
-            numberOfLeads: '218',
-            numberOfSales: '',
-            costPerSale: '',
-            slug: '/v1',
-        },
-        {
-            title: 'beauty salon 2',
-            date: '02.03.2024 - 02.04.2024',
-            image: '/img/portfolio/beauty-salon-2.webp',
-            companyBudget: '£3 836',
-            averageLeadPrice: '£27,4',
-            numberOfLeads: '142',
-            numberOfSales: '',
-            costPerSale: '',
-            slug: '/v2',
-        },
-        {
-            title: 'Car Detaling',
-            date: '04.03.2024 - 4.04.2024',
-            image: '/img/portfolio/car-detaling.webp',
-            companyBudget: '13 908 PLN',
-            averageLeadPrice: '183 PLN',
-            numberOfLeads: '76',
-            numberOfSales: '',
-            costPerSale: '',
-            slug: '/v3',
-        },
-        {
-            title: 'real estate',
-            date: '03.03.2024 - 03.04.2024',
-            image: '/img/portfolio/real-estate.webp',
-            companyBudget: '$4 348',
-            averageLeadPrice: '$45,7',
-            numberOfLeads: '95',
-            numberOfSales: '',
-            costPerSale: '',
-            slug: '/v4',
-        },
-        {
-            title: 'inferior designer',
-            date: '01.05.2024 - 31.05.2024',
-            image: '/img/portfolio/inferior-designer.webp',
-            companyBudget: '',
-            averageLeadPrice: '',
-            numberOfLeads: '100',
-            numberOfSales: '',
-            costPerSale: '',
-            slug: '/v5',
-        },
-        {
-            title: 'home improvement',
-            date: '01.05.2024 - 31.05.2024',
-            image: '/img/portfolio/home-improvement.webp',
-            companyBudget: '',
-            averageLeadPrice: '',
-            numberOfLeads: '',
-            numberOfSales: '',
-            costPerSale: '',
-            slug: '/v6',
-        },
-        {
-            title: 'e-commerce',
-            date: '01.04.2024 - 01.06.2024',
-            image: '/img/portfolio/e-commerce.webp',
-            companyBudget: '$9 569',
-            averageLeadPrice: '$7.06',
-            numberOfLeads: '1 354',
-            numberOfSales: '',
-            costPerSale: '',
-            slug: '/v7',
-        },
-        {
-            title: 'roofing',
-            date: '03.04.2024 - 03.05.2024',
-            image: '/img/portfolio/roofing.webp',
-            companyBudget: '$4 313',
-            averageLeadPrice: '120',
-            numberOfLeads: '18',
-            numberOfSales: '$239,6',
-            costPerSale: '',
-            slug: '/v8',
-        },
-        {
-            title: 'INTERIOR DESIGNER',
-            date: '01.05.2024 - 31.05.2024',
-            image: '/img/portfolio/accountant-services.webp',
-            companyBudget: '',
-            averageLeadPrice: '$214,94',
-            numberOfLeads: '',
-            numberOfSales: '',
-            costPerSale: '',
-            slug: '/v9',
-        },
-    ];
+    
     const [flippedCards, setFlippedCards] = useState<{ [key: number]: boolean }>({});
-
 
     return (
         <div className='bg-black text-white overflow-hidden       pb-[1000px]'>
@@ -339,12 +194,15 @@ export default function HomeContent(): JSX.Element {
                             <Image src="/img/home/star.svg" alt="Star" width={24} height={24} loading="lazy" priority={false} />
                         </motion.div>
                     </div>
+
                     <div className="w-fit mx-auto mt-4 hover:scale-105 transition-all duration-100">
-                        <Link href="#form" className="group relative bg-white hover:bg-white/90 transition-all duration-300 text-black px-8 py-4 rounded-full text-lg font-medium flex items-center gap-2 overflow-hidden" 
-                        onMouseEnter={() => playSound('hover_1')}>
+                        <Link href="#form" 
+                            className="group relative bg-white hover:bg-white/90 transition-all duration-300 text-black px-8 py-4 rounded-full text-lg font-medium flex items-center gap-2" 
+                            onMouseEnter={() => playSound('hover_1')}
+                        >
                             <span className="relative z-10">{t.hero.button}</span>
                             <span className="relative z-10 animate-[bounceX_1s_ease-in-out_infinite]">→</span>
-                            <div className="absolute inset-0 animate-shine bg-gradient-to-r from-gray/10 via-gray/70 to-gray/0"></div>
+                            <div className="absolute inset-0 rounded-full animate-pulse-border group-hover:animate-none"></div>
                         </Link>
                     </div>
                     
@@ -354,19 +212,19 @@ export default function HomeContent(): JSX.Element {
             <section className=" pt-14">
                 <div className="max-w-6xl mx-auto px-6">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div className="bg-zinc-900 p-8 rounded-lg border border-zinc-800 text-center hover:scale-105 hover:bg-zinc-800 transition-all duration-100"
+                        <div className="bg-zinc-900 p-8 rounded-lg border border-zinc-800 text-center flex flex-col items-center justify-center hover:scale-105 hover:bg-zinc-800 transition-all duration-100"
                         onMouseEnter={() => playSound('hover_2')}>
                             <h3 className="text-6xl font-bold mb-4">72</h3>
                             <p className="text-gray-400">{t.stats.specialists}</p>
                         </div>
                         
-                        <div className="bg-zinc-900 p-8 rounded-lg border border-zinc-800 text-center hover:scale-105 hover:bg-zinc-800 transition-all duration-100"
+                        <div className="bg-zinc-900 p-8 rounded-lg border border-zinc-800 text-center flex flex-col items-center justify-center hover:scale-105 hover:bg-zinc-800 transition-all duration-100"
                         onMouseEnter={() => playSound('hover_2')}>
                             <h3 className="text-6xl font-bold mb-4">43%</h3>
                             <p className="text-gray-400">{t.stats.budget}</p>
                         </div>
                         
-                        <div className="bg-zinc-900 p-8 rounded-lg border border-zinc-800 text-center hover:scale-105 hover:bg-zinc-800 transition-all duration-100"
+                        <div className="bg-zinc-900 p-8 rounded-lg border border-zinc-800 text-center flex flex-col items-center justify-center hover:scale-105 hover:bg-zinc-800 transition-all duration-100"
                         onMouseEnter={() => playSound('hover_2')}>
                             <h3 className="text-6xl font-bold mb-4">7 <span className="text-6xl">{t.stats.months}</span></h3>
                             <p className="text-gray-400">{t.stats.cases}</p>
@@ -409,12 +267,15 @@ export default function HomeContent(): JSX.Element {
                         <p className="mt-7 text-[#d3d3d3] md:text-lg leading-relaxed">
                             {t.introduction.description}
                         </p>
-                        
-                        <div className="pt-10 w-fit hover:scale-105 transition-all duration-100">
-                            <Link href="#form" className="group relative bg-white hover:bg-white/90 transition-all duration-300 text-black px-8 py-4 rounded-full text-lg font-medium flex items-center gap-2 overflow-hidden"
-                            onMouseEnter={() => playSound('hover_1')}>
-                                <span className="relative z-10">{t.introduction.button}</span>
-                                <span className="relative z-10 animate-[bounceX_1s_ease-in-out_infinite]">→</span>
+
+                        <div className="w-fit mt-4 hover:scale-105 transition-all duration-100">
+                            <Link href="#form" 
+                                className="group relative bg-white hover:bg-white/90 transition-all duration-300 text-black px-8 py-4 rounded-full text-lg font-medium flex items-center gap-2" 
+                                onMouseEnter={() => playSound('hover_1')}
+                            >
+                            <span className="relative z-10">{t.introduction.button}</span>
+                            <span className="relative z-10 animate-[bounceX_1s_ease-in-out_infinite]">→</span>
+                            <div className="absolute inset-0 rounded-full animate-pulse-border group-hover:animate-none"></div>
                             </Link>
                         </div>
                     </div>
@@ -786,14 +647,17 @@ export default function HomeContent(): JSX.Element {
                                 <h2 className="text-3xl md:text-5xl font-bold mt-2">{t.achievements.title}</h2>
                                 <p className="text-xl text-gray-600 mt-4">{t.achievements.description}</p>
                             </div>
-                            <Link 
-                                href="#form" 
-                                className="hover:scale-105 mt-4 xl:mt-0 inline-flex items-center gap-2 w-fit bg-black text-white px-8 py-4 rounded-full hover:bg-black/90 transition-all duration-300"
-                                onMouseEnter={() => playSound('hover_1')}
-                            >
-                                {t.achievements.button}
-                                <span className="inline-block animate-[bounceX_1s_ease-in-out_infinite]">→</span>
-                            </Link>
+                            
+                            <div className="w-fit mt-4 hover:scale-105 transition-all duration-100">
+                                <Link href="#form" 
+                                    className="group relative bg-black hover:bg-black/80 transition-all duration-300 text-white px-8 py-4 rounded-full text-lg font-medium flex items-center gap-2" 
+                                    onMouseEnter={() => playSound('hover_1')}
+                                >
+                                    <span className="relative z-10">{t.achievements.button}</span>
+                                    <span className="relative z-10 animate-[bounceX_1s_ease-in-out_infinite]">→</span>
+                                    <div className="absolute inset-0 rounded-full animate-pulse-border-black group-hover:animate-none"></div>
+                                </Link>
+                            </div>
                         </div>
 
                         <div className="mt-10 relative">
@@ -892,7 +756,93 @@ export default function HomeContent(): JSX.Element {
             </section>
             
             <Instructions translations={t}/>
-            
+
+            {/* team */}
+            <section className="max-w-6xl mx-auto px-6 py-10 md:py-20">
+                <div className="flex justify-between items-center">
+                    <div>
+                        <span className="text-red uppercase tracking-wider">{t.team.headline}</span>
+                        <h2 className="text-white text-3xl md:text-5xl font-bold mt-2">{t.team.title}</h2>
+                    </div>
+                    <div className="md:flex gap-4 hidden">
+                        <button 
+                            className="team-prev w-[60px] h-[60px] rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white/10 transition-all duration-300 active:scale-90"
+                            onClick={() => playSound('click')}
+                        >
+                            ←
+                        </button>
+                        <button 
+                            className="team-next w-[60px] h-[60px] rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white/10 transition-all duration-300 active:scale-90"
+                            onClick={() => playSound('click')}
+                        >
+                            →
+                        </button>
+                    </div>
+                </div>
+
+                <div className="relative">
+                    <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-black to-transparent z-10"></div>
+                    <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-black to-transparent z-10"></div>
+
+                    <Swiper
+                        modules={[Navigation]}
+                        slidesPerView={4}
+                        spaceBetween={32}
+                        loop={true}
+                        navigation={{
+                            prevEl: '.team-prev',
+                            nextEl: '.team-next',
+                        }}
+                        breakpoints={{
+                            0: { 
+                                slidesPerView: 3,
+                                spaceBetween: 32,
+                                centeredSlides: true
+                            },
+                            640: { 
+                                slidesPerView: 3,
+                                centeredSlides: false,
+                                spaceBetween: 32
+                            },
+                            1024: { 
+                                slidesPerView: 4,
+                                centeredSlides: false,
+                                spaceBetween: 32
+                            }
+                        }}
+                        onSlideChange={() => {
+                            if (window.innerWidth < 640) {
+                                playSound('swoosh');
+                            }
+                        }}
+                        className="team-swiper "
+                    >
+                        {[1, 2, 3, 4, 5, 6, 7].map((index) => (
+                            <SwiperSlide key={index}>
+                                <div className="pt-12 md:pt-16 transition-all duration-300 [&.swiper-slide-active]:scale-125 max-w-[200px] mx-auto sm:transform-none">
+                                    <div className="aspect-square relative rounded-full overflow-hidden">
+                                        <Image 
+                                            src={`/img/team/${index}.jpg`}
+                                            alt="Team member"
+                                            fill
+                                            className="object-cover"
+                                            loading="lazy"
+                                        />
+                                    </div>
+                                    <div className="text-center mt-3">
+                                        <h3 className="text-white text-base md:text-lg font-semibold">
+                                            {t.team.members[`member${index}` as keyof typeof t.team.members].name}
+                                        </h3>
+                                        <p className="text-gray-400 text-sm md:text-base">
+                                            {t.team.members[`member${index}` as keyof typeof t.team.members].position}
+                                        </p>
+                                    </div>
+                                </div>
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
+                </div>
+            </section>
         </div>
     );
 } 
