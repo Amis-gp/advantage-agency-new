@@ -151,3 +151,9 @@
 .swiper-button-prev::after {
     display: none !important;
 }
+
+@keyframes drawPath {
+  to {
+      stroke-dasharray: 30000, 30000;
+  }
+}

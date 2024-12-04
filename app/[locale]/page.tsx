@@ -1,3 +1,4 @@
+'use client';
 import AchievementsSection from '@/components/home/AchievementsSection';
 import Header from '@/components/Header';
 import HeroSection from '@/components/home/HeroSections';
@@ -22,7 +23,6 @@ export default function Home() {
         <PartnersSection />
         <Instructions />
         <TeamSection />
-
         <Footer />
       </main>
     </div>

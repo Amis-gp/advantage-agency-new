@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
@@ -8,6 +8,7 @@ import { playSound } from '@/app/constant/sound';
 export default function Instructions() {
     const circleRefs = useRef<(HTMLDivElement | null)[]>([]);
     const t = useTranslations('instructions');
+    const [strokeWidth, setStrokeWidth] = useState(6);
     
     useEffect(() => {
         const updatePath = () => {
@@ -15,6 +16,8 @@ export default function Instructions() {
             if (circles.length < 2) return;
 
             let path = '';
+            const isMobile = window.innerWidth < 768;
+
             circles.forEach((circle, index) => {
                 if (!circle) return;
                 
@@ -34,12 +37,21 @@ export default function Instructions() {
                         const nextX = nextRect.left - containerRect.left + (nextRect.width / 2);
                         const nextY = nextRect.top - containerRect.top + (nextRect.height / 2);
                         
-                        const cp1x = x + 100;
-                        const cp1y = y;
-                        const cp2x = nextX - 50;
-                        const cp2y = nextY - 100;
-                        
-                        path += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${nextX} ${nextY}`;
+                        if (isMobile) {
+                            // Мобільна версія: простіші криві
+                            const cp1x = x;
+                            const cp1y = y + (nextY - y) / 3;
+                            const cp2x = nextX;
+                            const cp2y = nextY - (nextY - y) / 3;
+                            path += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${nextX} ${nextY}`;
+                        } else {
+                            // Десктопна версія: оригінальні криві
+                            const cp1x = x + 100;
+                            const cp1y = y;
+                            const cp2x = nextX - 50;
+                            const cp2y = nextY - 100;
+                            path += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${nextX} ${nextY}`;
+                        }
                     }
                 } else if (index < circles.length - 1) {
                     const nextRect = circleRefs.current[index + 1]?.getBoundingClientRect();
@@ -48,14 +60,23 @@ export default function Instructions() {
                     const nextX = nextRect.left - containerRect.left + (nextRect.width / 2);
                     const nextY = nextRect.top - containerRect.top + (nextRect.height / 2);
                     
-                    const direction = index % 2 === 0 ? 1 : -1;
-                    
-                    const cp1x = x;
-                    const cp1y = y + 100;
-                    const cp2x = nextX + (200 * direction);
-                    const cp2y = nextY - 100;
-                    
-                    path += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${nextX} ${nextY}`;
+                    if (isMobile) {
+                        // Мобільна версія: вертикальніші криві
+                        const midY = (y + nextY) / 2;
+                        const cp1x = x;
+                        const cp1y = midY;
+                        const cp2x = nextX;
+                        const cp2y = midY;
+                        path += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${nextX} ${nextY}`;
+                    } else {
+                        // Десктопна версія: оригінальні криві
+                        const direction = index % 2 === 0 ? 1 : -1;
+                        const cp1x = x;
+                        const cp1y = y + 100;
+                        const cp2x = nextX + (200 * direction);
+                        const cp2y = nextY - 100;
+                        path += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${nextX} ${nextY}`;
+                    }
                 }
             });
 
@@ -75,6 +96,21 @@ export default function Instructions() {
             window.removeEventListener('resize', updatePath);
             timeouts.forEach(clearTimeout);
         };
+    }, []);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setStrokeWidth(window.innerWidth < 768 ? 4 : 6);
+        };
+
+        // Set initial value
+        handleResize();
+
+        // Add event listener
+        window.addEventListener('resize', handleResize);
+
+        // Cleanup
+        return () => window.removeEventListener('resize', handleResize);
     }, []);
 
     return (
@@ -100,6 +136,7 @@ export default function Instructions() {
                             <div className="absolute inset-0 rounded-full animate-pulse-border group-hover:animate-none"></div>
                         </Link>
                     </div>
+
                 </div>
 
 
@@ -108,10 +145,11 @@ export default function Instructions() {
                         className="steps-connection-svg absolute inset-0 w-full h-full" 
                         style={{ 
                             stroke: '#D12923',
-                            strokeWidth: 4,
+                            strokeWidth: strokeWidth,
                             fill: 'none',
                             minHeight: '1000px',
                             pointerEvents: 'none',
+                            filter: 'drop-shadow(0 0 8px rgba(209, 41, 35, 0.3))',
                         }}
                         preserveAspectRatio="none"
                     >
@@ -120,7 +158,9 @@ export default function Instructions() {
                             d="" 
                             style={{
                                 strokeLinecap: 'round',
-                                strokeLinejoin: 'round'
+                                strokeLinejoin: 'round',
+                                strokeDasharray: '0, 30000',
+                                animation: 'drawPath 2s ease-out forwards',
                             }}
                         />
                     </svg>
@@ -128,7 +168,7 @@ export default function Instructions() {
                     {[...Array(6)].map((_, index) => (
                         <div 
                             key={index} 
-                            className={`z-10 flex justify-center ${index % 2 === 1 ? 'mt-80' : '-mt-14'}`} 
+                            className={`z-10 flex justify-center ${index % 2 === 1 ? 'mt-28 md:mt-80' : '-mt-14'}`} 
                             style={{ animationDelay: `${index * 0.2}s` }}
                         >
                             <div className="relative rounded-2xl border border-white/90 bg-black p-3 md:p-12 space-y-4 md:space-y-10 animate-fadeIn max-w-[200px] md:max-w-[350px] h-fit w-full">
@@ -141,7 +181,7 @@ export default function Instructions() {
                                             circleRefs.current[index] = el;
                                         }
                                     }}
-                                    className={`absolute ${index % 2 === 0 ? '-top-28 left-16' : '-top-28 right-16'} ${index === 0 ? '!top-28 !left-auto !-right-12' : ''} flex justify-center items-center w-10 h-10 md:w-16 md:h-16 xl:w-24 xl:h-24 z-30 bg-red rounded-full`}
+                                    className={`absolute ${index % 2 === 0 ? 'left-16' : 'right-16'} ${index === 0 ? '!top-8 md:!top-28 !left-auto -right-6 md:!-right-12' : ''} -top-11  md:-top-20 xl:-top-28 flex justify-center items-center w-10 h-10 md:w-20 md:h-20 xl:w-24 xl:h-24 z-30 bg-red rounded-full`}
                                 >
                                     <span className="text-sm md:text-xl xl:text-4xl font-semibold">{`${index + 1}`}</span>
                                 </div>
